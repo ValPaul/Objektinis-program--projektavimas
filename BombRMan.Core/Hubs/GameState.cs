@@ -13,23 +13,23 @@ public class GameState
     public const int FPS = 60;
 
     static string _mapData = "222222222222222" +
-                             "200000000000002" +
-                             "202020202020202" +
-                             "200000000000002" +
-                             "202020202020202" +
-                             "200000000000002" +
-                             "202020202020202" +
-                             "200000000000002" +
-                             "202020202020202" +
-                             "200000000000002" +
-                             "202020202020202" +
-                             "200000000000002" +
+                             "200033333330002" +
+                             "202323232323202" +
+                             "203333333333302" +
+                             "232323232323232" +
+                             "233333333333332" +
+                             "232323232323232" +
+                             "233333333333332" +
+                             "232323232323232" +
+                             "203333333333302" +
+                             "202323232323202" +
+                             "200033333330002" +
                              "222222222222222";
 
     private readonly Point[] _initialPositions;
     private readonly ConcurrentStack<Player> _availablePlayers = new();
     private readonly PlayerList _activePlayers = new();
-    private readonly Map _map = new(_mapData, 15, 13, 32);
+    private readonly Map _map = Map.Instance(_mapData, 15, 13, 32);
     private readonly IHubContext<GameServer> _hubContext;
     private readonly IHostApplicationLifetime _hostApplicationLifetime;
     private int _updatesPerSecond;

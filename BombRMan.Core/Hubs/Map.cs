@@ -1,16 +1,39 @@
-﻿namespace BombRMan.Hubs;
+﻿using System.Net.NetworkInformation;
+
+namespace BombRMan.Hubs;
 
 public class Map
 {
     private readonly Tile[] _map;
+    private static Map _instance;
+    private static readonly object _lock = new object();
 
-    public Map(string map, int width, int height, int tileSize)
+    private Map(string map, int width, int height, int tileSize)
     {
         RawData = map;
         _map = Create(map);
         Width = width;
         Height = height;
         TileSize = tileSize;
+    }
+
+    public static Map Instance(string map, int width, int height, int tileSize)
+    {
+        if(_instance == null )
+        {
+            lock(_lock)
+            {
+
+                if (_instance == null)
+                {
+                    _instance = new Map(map,  width, height, tileSize);
+                }
+
+            }
+
+        }
+
+        return _instance;
     }
 
     public string RawData { get; }

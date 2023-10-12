@@ -73,7 +73,7 @@ namespace BombermanMultiplayer
             }
 
 
-            server = new Server(port);
+            server = Server.Instance(port);
 
             cts = new CancellationTokenSource();
             string fileName = tbGameToLoad.Text;

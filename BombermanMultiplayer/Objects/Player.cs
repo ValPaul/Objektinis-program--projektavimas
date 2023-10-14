@@ -204,9 +204,6 @@ namespace BombermanMultiplayer
             {
                 if (!MapGrid[this.CasePosition[0], this.CasePosition[1]].Occupied)
                 {
-                    //IBombAbstractFactory factory = new
-
-                    //IBombAbstractFactory factory = factory.CreateBomb(BombType.Normal);
 
                     IBomb bombFactory = null;
 
@@ -220,7 +217,7 @@ namespace BombermanMultiplayer
                     else
                     {
 
-                        bombFactory = new NonExplosiveBombFactory().CreateBomb(BombType.Explosive, this.CasePosition[0], this.CasePosition[1], 8, 48, 48, 2000, 48, 48, this.PlayerNumero);
+                        bombFactory = new NonExplosiveBombFactory().CreateBomb(BombType.NonExplosive, this.CasePosition[0], this.CasePosition[1], 8, 48, 48, 2000, 48, 48, this.PlayerNumero);
                     }
 
                     BombsOnTheMap.Add(bombFactory);

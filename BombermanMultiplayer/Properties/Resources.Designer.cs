@@ -183,6 +183,16 @@ namespace BombermanMultiplayer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap NonExplosiveBombe {
+            get {
+                object obj = ResourceManager.GetObject("NonExplosiveBombe", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap SpeedUp {
             get {
                 object obj = ResourceManager.GetObject("SpeedUp", resourceCulture);

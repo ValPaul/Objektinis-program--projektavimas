@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace BombermanMultiplayer.Objects
 {
-    enum BombType
+    public enum BombType
     {
         Normal,
-        Explosive
+        Explosive,
+        NonExplosive
     }
 }

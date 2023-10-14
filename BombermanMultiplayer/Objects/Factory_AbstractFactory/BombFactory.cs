@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace BombermanMultiplayer.Objects
 {
-    internal class BombFactory
+    public class BombFactory : IBombAbstractFactory
     {
 
-        public static IBombFactory CreateBomb(BombType type, int caseLigne, int caseCol, int totalFrames, int frameWidth, int frameHeight, int detonationTime, int TileWidth, int TileHeight, short proprietary)
+        public IBomb CreateBomb(BombType type, int caseLigne, int caseCol, int totalFrames, int frameWidth, int frameHeight, int detonationTime, int TileWidth, int TileHeight, short proprietary)
         {
             switch(type)
             {

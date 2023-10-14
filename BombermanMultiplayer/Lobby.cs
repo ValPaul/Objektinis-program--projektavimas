@@ -467,7 +467,7 @@ namespace BombermanMultiplayer
 
                 }
             }
-            foreach (IBombFactory bomb in game.BombsOnTheMap)
+            foreach (IBomb bomb in game.BombsOnTheMap)
             {
                 if (bomb != null)
                     bomb.LoadSprite(Properties.Resources.Bombe);
@@ -566,7 +566,7 @@ namespace BombermanMultiplayer
             game.player2.Draw(gr);
             game.player2.DrawPosition(gr);
 
-            foreach (IBombFactory bomb in game.BombsOnTheMap)
+            foreach (IBomb bomb in game.BombsOnTheMap)
             {
                 try
                 {

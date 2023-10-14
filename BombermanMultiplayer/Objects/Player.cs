@@ -198,13 +198,31 @@ namespace BombermanMultiplayer
 
         #region Actions
         
-        public void DropBomb(Tile[,] MapGrid, List<IBombFactory> BombsOnTheMap, Player otherplayer)
+        public void DropBomb(Tile[,] MapGrid, List<IBomb> BombsOnTheMap, Player otherplayer)
         {
             if (this.BombNumb > 0) //If player still has bombs
             {
                 if (!MapGrid[this.CasePosition[0], this.CasePosition[1]].Occupied)
                 {
-                    IBombFactory bombFactory = BombFactory.CreateBomb(BombType.Explosive,this.CasePosition[0], this.CasePosition[1], 8, 48, 48, 2000, 48, 48, this.PlayerNumero);
+                    //IBombAbstractFactory factory = new
+
+                    //IBombAbstractFactory factory = factory.CreateBomb(BombType.Normal);
+
+                    IBomb bombFactory = null;
+
+                    int randomNumber = new Random().Next(1,10);
+
+                    if (randomNumber <= 8)
+                    {
+                        bombFactory = new BombFactory().CreateBomb(BombType.Explosive, this.CasePosition[0], this.CasePosition[1], 8, 48, 48, 2000, 48, 48, this.PlayerNumero);
+
+                    }
+                    else
+                    {
+
+                        bombFactory = new NonExplosiveBombFactory().CreateBomb(BombType.Explosive, this.CasePosition[0], this.CasePosition[1], 8, 48, 48, 2000, 48, 48, this.PlayerNumero);
+                    }
+
                     BombsOnTheMap.Add(bombFactory);
                     //Case obtain a reference to the bomb dropped on
                     MapGrid[this.CasePosition[0], this.CasePosition[1]].bomb = BombsOnTheMap[BombsOnTheMap.Count-1];
@@ -291,9 +309,9 @@ namespace BombermanMultiplayer
             }
         }
 
-        public void Deactivate(Tile[,] MapGrid, List<IBombFactory> bombsOnTheMap,  Player otherPlayer)
+        public void Deactivate(Tile[,] MapGrid, List<IBomb> bombsOnTheMap,  Player otherPlayer)
         {
-            IBombFactory toDesamorce = null;
+            IBomb toDesamorce = null;
 
             //Check if player has the bonus
             if (this.BonusSlot[0]!= BonusType.Desamorce && this.BonusSlot[1] != BonusType.Desamorce)

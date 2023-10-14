@@ -72,9 +72,12 @@
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Objects\Bomb2.cs" />
-    <Compile Include="Objects\BombFactory.cs" />
-    <Compile Include="Objects\BombType.cs" />
-    <Compile Include="Objects\IBombFactory.cs" />
+    <Compile Include="Objects\Factory_AbstractFactory\BombFactory.cs" />
+    <Compile Include="Objects\Factory_AbstractFactory\BombType.cs" />
+    <Compile Include="Objects\Factory_AbstractFactory\IBombAbstractFactory.cs" />
+    <Compile Include="Objects\Factory_AbstractFactory\IBomb.cs" />
+    <Compile Include="Objects\NonExplosiveBomb.cs" />
+    <Compile Include="Objects\Factory_AbstractFactory\NonExplosiveBombFactory.cs" />
     <Compile Include="SaveGameData.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameState.cs" />
@@ -207,6 +210,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sprites\NonExplosiveBombe.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

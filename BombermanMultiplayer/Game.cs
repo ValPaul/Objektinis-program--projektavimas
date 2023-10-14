@@ -22,7 +22,7 @@ namespace BombermanMultiplayer
         public World world;
         public Player player1, player2;
 
-        public List<IBombFactory> BombsOnTheMap;
+        public List<IBomb> BombsOnTheMap;
         public System.Timers.Timer LogicTimer;
 
         //ctor when picture box size is determined
@@ -33,7 +33,7 @@ namespace BombermanMultiplayer
             player1 = new Player(1, 2, 33, 33, 1, 1, 48, 48, 80, 1);
             player2 = new Player(1, 2, 33, 33, this.world.MapGrid.GetLength(0) - 2, this.world.MapGrid.GetLength(0) - 2, 48, 48, 80, 2);
 
-            this.BombsOnTheMap = new List<IBombFactory>();
+            this.BombsOnTheMap = new List<IBomb>();
             this.LogicTimer = new System.Timers.Timer(40);
             this.LogicTimer.Elapsed += LogicTimer_Elapsed;
         }

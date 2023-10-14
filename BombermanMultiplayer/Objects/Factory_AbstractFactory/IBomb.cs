@@ -7,10 +7,8 @@ using System.Drawing;
 
 namespace BombermanMultiplayer
 {
-    public interface IBombFactory
+    public interface IBomb
     {
-
-        //void CreateBomb();
 
         void TimingExplosion(int elsapedTime);
 

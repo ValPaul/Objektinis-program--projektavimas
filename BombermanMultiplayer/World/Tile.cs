@@ -23,7 +23,7 @@ namespace BombermanMultiplayer
         [NonSerialized]
         public Bonus BonusHere = null;
         [NonSerialized]
-        public Bomb bomb = null;
+        public IBombFactory bomb = null;
 
         public int FireTime = 500; 
 

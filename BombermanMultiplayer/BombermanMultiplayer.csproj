@@ -71,6 +71,10 @@
     <Compile Include="MainMenu.Designer.cs">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Objects\Bomb2.cs" />
+    <Compile Include="Objects\BombFactory.cs" />
+    <Compile Include="Objects\BombType.cs" />
+    <Compile Include="Objects\IBombFactory.cs" />
     <Compile Include="SaveGameData.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameState.cs" />
@@ -197,6 +201,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Sprites\Blood.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sprites\Bombee.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

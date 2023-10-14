@@ -198,13 +198,14 @@ namespace BombermanMultiplayer
 
         #region Actions
         
-        public void DropBomb(Tile[,] MapGrid, List<Bomb> BombsOnTheMap, Player otherplayer)
+        public void DropBomb(Tile[,] MapGrid, List<IBombFactory> BombsOnTheMap, Player otherplayer)
         {
             if (this.BombNumb > 0) //If player still has bombs
             {
                 if (!MapGrid[this.CasePosition[0], this.CasePosition[1]].Occupied)
                 {
-                    BombsOnTheMap.Add(new Bomb(this.CasePosition[0], this.CasePosition[1], 8, 48, 48, 2000, 48, 48, this.PlayerNumero));
+                    IBombFactory bombFactory = BombFactory.CreateBomb(BombType.Explosive,this.CasePosition[0], this.CasePosition[1], 8, 48, 48, 2000, 48, 48, this.PlayerNumero);
+                    BombsOnTheMap.Add(bombFactory);
                     //Case obtain a reference to the bomb dropped on
                     MapGrid[this.CasePosition[0], this.CasePosition[1]].bomb = BombsOnTheMap[BombsOnTheMap.Count-1];
                     MapGrid[this.CasePosition[0], this.CasePosition[1]].Occupied = true;
@@ -290,9 +291,9 @@ namespace BombermanMultiplayer
             }
         }
 
-        public void Deactivate(Tile[,] MapGrid, List<Bomb> bombsOnTheMap,  Player otherPlayer)
+        public void Deactivate(Tile[,] MapGrid, List<IBombFactory> bombsOnTheMap,  Player otherPlayer)
         {
-            Bomb toDesamorce = null;
+            IBombFactory toDesamorce = null;
 
             //Check if player has the bonus
             if (this.BonusSlot[0]!= BonusType.Desamorce && this.BonusSlot[1] != BonusType.Desamorce)
@@ -304,7 +305,7 @@ namespace BombermanMultiplayer
             {
                 toDesamorce = MapGrid[this.CasePosition[0], this.CasePosition[1]].bomb;
 
-                if (toDesamorce.Proprietary == this.PlayerNumero)
+                if (toDesamorce.CheckProprietary(this.PlayerNumero))
                 {
                     this.BombNumb++;
                 }
@@ -328,7 +329,7 @@ namespace BombermanMultiplayer
                     {
                         toDesamorce = MapGrid[this.CasePosition[0] + i, this.CasePosition[1]].bomb;
 
-                        if (toDesamorce.Proprietary == this.PlayerNumero)
+                        if (toDesamorce.CheckProprietary(this.PlayerNumero))
                         {
                             this.BombNumb++;
                         }
@@ -350,7 +351,7 @@ namespace BombermanMultiplayer
                     {
                         toDesamorce = MapGrid[this.CasePosition[0], this.CasePosition[1] + i].bomb;
 
-                        if (toDesamorce.Proprietary == this.PlayerNumero)
+                        if (toDesamorce.CheckProprietary(this.PlayerNumero))
                         {
                             this.BombNumb++;
                         }

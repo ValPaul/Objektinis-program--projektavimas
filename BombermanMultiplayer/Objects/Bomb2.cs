@@ -12,19 +12,19 @@ using System.Diagnostics;
 namespace BombermanMultiplayer
 {
     [Serializable]
-    public class Bomb : GameObject, IDisposable, IBombFactory
+    public class Bomb2 : GameObject, IDisposable, IBombFactory
     {
 
         private int _DetonationTime = 2000;
         public bool Explosing = false;
-        private int bombPower = 3;
+        private int BombPower = 3;
 
-        //Who drops the bomb, player 1 = 1, player 2 = 2
+        //Who drops the Bomb2, player 1 = 1, player 2 = 2
         public short Proprietary;
 
         #region Accessors
 
-      
+
 
         public int DetonationTime
         {
@@ -35,34 +35,22 @@ namespace BombermanMultiplayer
 
             set
             {
-                if(_DetonationTime > 0)
-                _DetonationTime = value;
+                if (_DetonationTime > 0)
+                    _DetonationTime = value;
             }
         }
 
-     
+
 
 
         #endregion
 
-
-        public void CreateBomb()
+        public bool GetExplosing()
         {
-            //return new Bomb()
-        }
-
-        public Bomb(int caseLigne, int caseCol, int totalFrames, int frameWidth, int frameHeight, int detonationTime, int TileWidth, int TileHeight, short proprietary)
-            : base(caseCol * TileWidth, caseLigne * TileHeight, totalFrames, frameWidth, frameHeight)
-        {
-            CasePosition = new int[2] { caseLigne, caseCol };
-
-            //Charge the sprite
-            this.LoadSprite(Properties.Resources.Bombe);
-            //Define the proprietary player (who drops this bomb)
-            this.Proprietary = proprietary;
-            this._DetonationTime = detonationTime;
-
-            this._frameTime = DetonationTime / 8;
+            if (this.Explosing)
+                return true;
+            else
+                return false;
         }
 
         public bool CheckProprietary(byte player)
@@ -72,14 +60,21 @@ namespace BombermanMultiplayer
             else
                 return false;
         }
-
-        public bool GetExplosing()
+        public Bomb2(int caseLigne, int caseCol, int totalFrames, int frameWidth, int frameHeight, int detonationTime, int TileWidth, int TileHeight, short proprietary)
+            : base(caseCol * TileWidth, caseLigne * TileHeight, totalFrames, frameWidth, frameHeight)
         {
-            if (this.Explosing)
-                return true;
-            else
-                return false;
+            CasePosition = new int[2] { caseLigne, caseCol };
+
+            //Charge the sprite
+            this.LoadSprite(Properties.Resources.Bombee);
+            //Define the proprietary player (who drops this Bomb2)
+            this.Proprietary = proprietary;
+            this._DetonationTime = detonationTime;
+
+            this._frameTime = DetonationTime / 8;
         }
+
+
 
         public void TimingExplosion(int elsapedTime)
         {
@@ -98,14 +93,14 @@ namespace BombermanMultiplayer
             PropagationUP = PropagationDOWN = PropagationLEFT = PropagationRIGHT = true;
 
 
-            //Give back a bomb to the proprietary 
+            //Give back a Bomb2 to the proprietary 
             if (Proprietary == 1)
             {
                 player1.BombNumb++;
 
                 if (player1.BonusSlot[0] == Objects.BonusType.PowerBomb || player1.BonusSlot[1] == Objects.BonusType.PowerBomb)
                 {
-                    this.bombPower++;
+                    this.BombPower++;
                 }
             }
             else if (Proprietary == 2)
@@ -114,7 +109,7 @@ namespace BombermanMultiplayer
 
                 if (player2.BonusSlot[0] == Objects.BonusType.PowerBomb || player2.BonusSlot[1] == Objects.BonusType.PowerBomb)
                 {
-                    this.bombPower++;
+                    this.BombPower++;
                 }
             }
 
@@ -133,7 +128,7 @@ namespace BombermanMultiplayer
             }
 
 
-            for (int i = 0; i < this.bombPower; i++)
+            for (int i = 0; i < this.BombPower; i++)
             {
 
                 //UP
@@ -268,7 +263,7 @@ namespace BombermanMultiplayer
 
         }
 
-        
+
 
 
         #region IDisposable Support
@@ -294,7 +289,7 @@ namespace BombermanMultiplayer
         }
 
         // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-        // ~Bomb() {
+        // ~Bomb2() {
         //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
         //   Dispose(false);
         // }
@@ -305,7 +300,7 @@ namespace BombermanMultiplayer
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(true);
             // TODO: uncomment the following line if the finalizer is overridden above.
-             GC.SuppressFinalize(this);
+            GC.SuppressFinalize(this);
         }
         #endregion
 

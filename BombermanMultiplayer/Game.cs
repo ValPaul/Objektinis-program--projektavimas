@@ -420,7 +420,7 @@ namespace BombermanMultiplayer
                     {
                         if (player.BonusSlot[i] == Objects.BonusType.SpeedBoost)
                         {
-                            player.Vitesse /= 2;
+                            player.Speed /= 2;
                         }
 
                         player.BonusSlot[i] = Objects.BonusType.None;
@@ -453,7 +453,7 @@ namespace BombermanMultiplayer
                             break;
                         case Objects.BonusType.SpeedBoost:
                             player.BonusSlot[freeSlot] = Objects.BonusType.SpeedBoost;
-                            player.Vitesse *= 2;
+                            player.Speed *= 2;
                             player.BonusTimer[freeSlot] = 5000;
                             break;
                         case Objects.BonusType.Desamorce:
@@ -484,7 +484,7 @@ namespace BombermanMultiplayer
             {
                 if (CheckCollisionPlayer(player1, player2, world.MapGrid, player1.Orientation))
                 {
-                    player1.Move();
+                    player1.MovePlayer();
 
                 }
                 player1.UpdateFrame((int)LogicTimer.Interval);
@@ -496,7 +496,7 @@ namespace BombermanMultiplayer
             {
                 if (CheckCollisionPlayer(player2, player1, world.MapGrid, player2.Orientation))
                 {
-                    player2.Move();
+                    player2.MovePlayer();
                 }
                 player2.UpdateFrame((int)LogicTimer.Interval);
             }
@@ -531,7 +531,7 @@ namespace BombermanMultiplayer
                     {
                         //UP
                         //Temporary version of player collision box with expected position after deplacement
-                        Rectangle rect = new Rectangle(movingPlayer.Source.X, movingPlayer.Source.Y - movingPlayer.Vitesse, movingPlayer.Source.Width, movingPlayer.Source.Height);
+                        Rectangle rect = new Rectangle(movingPlayer.Source.X, movingPlayer.Source.Y - movingPlayer.Speed, movingPlayer.Source.Width, movingPlayer.Source.Height);
 
                         if (!map[lig - 1, col - 1].Walkable || map[lig - 1, col - 1].Occupied)
                         {
@@ -555,7 +555,7 @@ namespace BombermanMultiplayer
                 case Player.MovementDirection.DOWN:
                     {
                         //DOWN
-                        Rectangle rect = new Rectangle(movingPlayer.Source.X, movingPlayer.Source.Y + movingPlayer.Vitesse, movingPlayer.Source.Width, movingPlayer.Source.Height);
+                        Rectangle rect = new Rectangle(movingPlayer.Source.X, movingPlayer.Source.Y + movingPlayer.Speed, movingPlayer.Source.Width, movingPlayer.Source.Height);
 
                         if (!map[lig + 1, col - 1].Walkable || map[lig + 1, col - 1].Occupied)
                         {
@@ -579,7 +579,7 @@ namespace BombermanMultiplayer
                 case Player.MovementDirection.LEFT:
                     {
                         //LEFT
-                        Rectangle rect = new Rectangle(movingPlayer.Source.X - movingPlayer.Vitesse, movingPlayer.Source.Y, movingPlayer.Source.Width, movingPlayer.Source.Height);
+                        Rectangle rect = new Rectangle(movingPlayer.Source.X - movingPlayer.Speed, movingPlayer.Source.Y, movingPlayer.Source.Width, movingPlayer.Source.Height);
                         if (!map[lig - 1, col - 1].Walkable || map[lig - 1, col - 1].Occupied)
                         {
                             if (CheckCollisionRectangle(rect, map[lig - 1, col - 1].Source))
@@ -601,7 +601,7 @@ namespace BombermanMultiplayer
                     break;
                 case Player.MovementDirection.RIGHT:
                     {
-                        Rectangle rect = new Rectangle(movingPlayer.Source.X + movingPlayer.Vitesse, movingPlayer.Source.Y, movingPlayer.Source.Width, movingPlayer.Source.Height);
+                        Rectangle rect = new Rectangle(movingPlayer.Source.X + movingPlayer.Speed, movingPlayer.Source.Y, movingPlayer.Source.Width, movingPlayer.Source.Height);
                         //RIGHT
                         if (!map[lig - 1, col + 1].Walkable || map[lig - 1, col + 1].Occupied)
                         {

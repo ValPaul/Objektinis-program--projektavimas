@@ -10,6 +10,7 @@ using System.Media;
 using System.Diagnostics;
 using System.Collections;
 using BombermanMultiplayer.Objects;
+using BombermanMultiplayer.Objects.Command;
 
 namespace BombermanMultiplayer
 {
@@ -18,20 +19,17 @@ namespace BombermanMultiplayer
     {
         byte PlayerNumero;
         public string Name = "Player";
-        private byte _Vitesse = 5;
+        private byte _Speed = 5;
         private bool _Dead = false;
         private byte _BombNumb = 2;
         private byte _Lifes = 1;
+        private ICommand currentCommand;
 
         //Player can have 2 bonus at the same time
         public BonusType[] BonusSlot = new BonusType[2];
         public short[] BonusTimer = new short[2];
 
         public MovementDirection Orientation  = MovementDirection.NONE;
-        
-
-        
-
 
         public int Wait = 500;
 
@@ -48,13 +46,15 @@ namespace BombermanMultiplayer
 
         #region Accessors
 
-
+        public void SetCommand(ICommand command)
+        {
+            currentCommand = command;
+        }
 
         public byte Lifes
         {
             get { return _Lifes; }
-            set { 
-                    _Lifes = value; }
+            set { _Lifes = value; }
         }
 
 
@@ -64,39 +64,29 @@ namespace BombermanMultiplayer
             set { _BombNumb = value; }
         }
 
-        public byte Vitesse
+        public byte Speed
         {
-            get { return _Vitesse; }
+            get { return _Speed; }
             set
             {
                 if (value > 0)
-                    _Vitesse = value;
-                else _Vitesse = 2;
+                    _Speed = value;
+                else _Speed = 2;
             }
 
         }
-
-        
-
-
-
 
         public bool Dead
         {
             get { return _Dead; }
             set
             {
-
                 _Dead = value;
-
             }
 
         }
 
         #endregion
-
-
-
 
         public Player(byte lifes, int totalFrames, int frameWidth, int frameHeight, int caseligne, int casecolonne, int TileWidth, int TileHeight, int frameTime, byte playerNumero)
             : base(casecolonne * TileWidth, caseligne * TileHeight, totalFrames, frameWidth, frameHeight, frameTime)
@@ -123,21 +113,37 @@ namespace BombermanMultiplayer
 
         }
 
-        public void Move()
+        public void MovePlayer()
+        {
+            if (currentCommand != null)
+            {
+                currentCommand.Execute(this);
+            }
+        }
+
+        public void MoveCommand()
         {
             switch (this.Orientation)
             {
                 case MovementDirection.UP:
-                    DeplHaut();
+                    ICommand moveUpCommand = new MoveUpCommand();
+                    this.SetCommand(moveUpCommand);
+                    this.MovePlayer();
                     break;
                 case MovementDirection.DOWN:
-                    DeplBas();
+                    ICommand moveDownCommand = new MoveDownCommand();
+                    this.SetCommand(moveDownCommand);
+                    this.MovePlayer();
                     break;
                 case MovementDirection.LEFT:
-                    DeplGauche();
+                    ICommand moveLeftCommand = new MoveLeftCommand();
+                    this.SetCommand(moveLeftCommand);
+                    this.MovePlayer();
                     break;
                 case MovementDirection.RIGHT:
-                    DeplDroite();
+                    ICommand moveRightCommand = new MoveRightCommand();
+                    this.SetCommand(moveRightCommand);
+                    this.MovePlayer();
                     break;
                 default:
                     this.frameindex = 0;
@@ -149,46 +155,46 @@ namespace BombermanMultiplayer
 
         public void DeplHaut()
         {
-                base.Bouger(0, -Vitesse);
+            base.Move(0, -Speed);
         }
 
         public void DeplBas()
         {
-                base.Bouger(0, Vitesse);
+            base.Move(0, Speed);
         }
 
         public void DeplGauche()
         {
-                base.Bouger(-Vitesse, 0);
+            base.Move(-Speed, 0);
         }
 
         public void DeplDroite()
         {
-                base.Bouger(Vitesse, 0);
+            base.Move(Speed, 0);
         }
 
         public void NO()
         {
-            base.Bouger(-Vitesse / 2, 0);
-            base.Bouger(0, Vitesse / 2);
+            base.Move(-Speed / 2, 0);
+            base.Move(0, Speed / 2);
         }
         public void NE()
         {
             
-            base.Bouger(Vitesse / 2, 0);
-            base.Bouger(0, Vitesse / 2);
+            base.Move(Speed / 2, 0);
+            base.Move(0, Speed / 2);
         }
         public void SO()
         {
 
-            base.Bouger(-Vitesse / 2, 0);
-            base.Bouger(0, -Vitesse / 2);
+            base.Move(-Speed / 2, 0);
+            base.Move(0, -Speed / 2);
         }
         public void SE()
         {
 
-            base.Bouger(Vitesse / 2, 0);
-            base.Bouger(0, -Vitesse / 2);
+            base.Move(Speed / 2, 0);
+            base.Move(0, -Speed / 2);
         }
 
 

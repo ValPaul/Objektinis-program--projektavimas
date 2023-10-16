@@ -72,6 +72,7 @@
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Objects\Bomb2.cs" />
+    <Compile Include="Objects\Facade\Facade_Example.cs" />
     <Compile Include="Objects\Factory_AbstractFactory\BombFactory.cs" />
     <Compile Include="Objects\Factory_AbstractFactory\BombType.cs" />
     <Compile Include="Objects\Factory_AbstractFactory\IBombAbstractFactory.cs" />

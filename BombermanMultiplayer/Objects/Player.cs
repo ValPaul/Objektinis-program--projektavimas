@@ -10,7 +10,6 @@ using System.Media;
 using System.Diagnostics;
 using System.Collections;
 using BombermanMultiplayer.Objects;
-using BombermanMultiplayer.Objects.Command;
 
 namespace BombermanMultiplayer
 {
@@ -23,7 +22,6 @@ namespace BombermanMultiplayer
         private bool _Dead = false;
         private byte _BombNumb = 2;
         private byte _Lifes = 1;
-        private ICommand currentCommand;
 
         //Player can have 2 bonus at the same time
         public BonusType[] BonusSlot = new BonusType[2];
@@ -45,11 +43,6 @@ namespace BombermanMultiplayer
 
 
         #region Accessors
-
-        public void SetCommand(ICommand command)
-        {
-            currentCommand = command;
-        }
 
         public byte Lifes
         {
@@ -113,43 +106,26 @@ namespace BombermanMultiplayer
 
         }
 
-        public void MovePlayer()
-        {
-            if (currentCommand != null)
-            {
-                currentCommand.Execute(this);
-            }
-        }
-
-        public void MoveCommand()
+        public void Move()
         {
             switch (this.Orientation)
             {
                 case MovementDirection.UP:
-                    ICommand moveUpCommand = new MoveUpCommand();
-                    this.SetCommand(moveUpCommand);
-                    this.MovePlayer();
+                    DeplHaut();
                     break;
                 case MovementDirection.DOWN:
-                    ICommand moveDownCommand = new MoveDownCommand();
-                    this.SetCommand(moveDownCommand);
-                    this.MovePlayer();
+                    DeplBas();
                     break;
                 case MovementDirection.LEFT:
-                    ICommand moveLeftCommand = new MoveLeftCommand();
-                    this.SetCommand(moveLeftCommand);
-                    this.MovePlayer();
+                    DeplGauche();
                     break;
                 case MovementDirection.RIGHT:
-                    ICommand moveRightCommand = new MoveRightCommand();
-                    this.SetCommand(moveRightCommand);
-                    this.MovePlayer();
+                    DeplDroite();
                     break;
                 default:
                     this.frameindex = 0;
                     break;
             }
-
         }
 
 

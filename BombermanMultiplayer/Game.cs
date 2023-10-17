@@ -484,7 +484,7 @@ namespace BombermanMultiplayer
             {
                 if (CheckCollisionPlayer(player1, player2, world.MapGrid, player1.Orientation))
                 {
-                    player1.MovePlayer();
+                    player1.Move();
 
                 }
                 player1.UpdateFrame((int)LogicTimer.Interval);
@@ -496,7 +496,7 @@ namespace BombermanMultiplayer
             {
                 if (CheckCollisionPlayer(player2, player1, world.MapGrid, player2.Orientation))
                 {
-                    player2.MovePlayer();
+                    player2.Move();
                 }
                 player2.UpdateFrame((int)LogicTimer.Interval);
             }

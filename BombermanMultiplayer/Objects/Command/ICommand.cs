@@ -8,6 +8,6 @@ namespace BombermanMultiplayer.Objects.Command
 {
     public interface ICommand
     {
-        void Execute(Player player);
+        void Execute();
     }
 }

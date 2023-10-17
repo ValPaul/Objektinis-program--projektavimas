@@ -3,70 +3,60 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BombermanMultiplayer.Objects.Command
 {
-    public class MoveUpCommand : ICommand
+    public class OpenModeCommand : ICommand
     {
-        public void Execute(Player player)
+        public void Execute()
         {
-            player.DeplHaut();
+            Mode mode = new Mode();
+            mode.Show();
         }
     }
 
-    public class MoveDownCommand : ICommand
+    public class ExitCommand : ICommand
     {
-        public void Execute(Player player)
+        public void Execute()
         {
-            player.DeplBas();
+            Application.Exit();
         }
     }
 
-    public class MoveLeftCommand : ICommand
+    public class OpenTutorialCommand : ICommand
     {
-        public void Execute(Player player)
+        public void Execute()
         {
-            player.DeplGauche();
+            Tutorial tutorial = new Tutorial();
+            tutorial.Show();
         }
     }
 
-    public class MoveRightCommand : ICommand
+    public class OpenHighScoreCommand : ICommand
     {
-        public void Execute(Player player)
+        public void Execute()
         {
-            player.DeplDroite();
+            HighScore highScore = new HighScore();
+            highScore.Show();
         }
     }
 
-    public class NoCommand : ICommand
+    public class OpenSettingCommand : ICommand
     {
-        public void Execute(Player player)
+        public void Execute()
         {
-            player.NO();
+            Setting setting = new Setting();
+            setting.Show();
         }
     }
 
-    public class NeCommand : ICommand
+    public class OpenAboutCommand : ICommand
     {
-        public void Execute(Player player)
+        public void Execute()
         {
-            player.NE();
-        }
-    }
-
-    public class SoCommand : ICommand
-    {
-        public void Execute(Player player)
-        {
-            player.SO();
-        }
-    }
-
-    public class SeCommand : ICommand
-    {
-        public void Execute(Player player)
-        {
-            player.SE();
+            About about = new About();
+            about.Show();
         }
     }
 

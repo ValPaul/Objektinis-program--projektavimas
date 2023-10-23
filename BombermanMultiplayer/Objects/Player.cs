@@ -14,7 +14,7 @@ using BombermanMultiplayer.Objects;
 namespace BombermanMultiplayer
 {
     [Serializable]
-    public class Player : GameObject
+    public class Player : GameObject, IPlayer
     {
         byte PlayerNumero;
         public string Name = "Player";
@@ -28,10 +28,6 @@ namespace BombermanMultiplayer
         public short[] BonusTimer = new short[2];
 
         public MovementDirection Orientation  = MovementDirection.NONE;
-        
-
-        
-
 
         public int Wait = 500;
 
@@ -94,8 +90,6 @@ namespace BombermanMultiplayer
         }
 
         #endregion
-
-
 
 
         public Player(byte lifes, int totalFrames, int frameWidth, int frameHeight, int caseligne, int casecolonne, int TileWidth, int TileHeight, int frameTime, byte playerNumero)
@@ -190,8 +184,6 @@ namespace BombermanMultiplayer
             base.Bouger(Vitesse / 2, 0);
             base.Bouger(0, -Vitesse / 2);
         }
-
-
 
 
 #endregion

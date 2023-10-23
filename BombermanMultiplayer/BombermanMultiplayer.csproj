@@ -74,7 +74,7 @@
     <Compile Include="Objects\Bomb2.cs" />
     <Compile Include="Objects\Decorator\IPlayer.cs" />
     <Compile Include="Objects\Decorator\PlayerDecorator.cs" />
-    <Compile Include="Objects\Decorator\ReversedMovementPlayer.cs" />
+    <Compile Include="Objects\Decorator\DoubleMovementPlayer.cs" />
     <Compile Include="Objects\Factory_AbstractFactory\BombFactory.cs" />
     <Compile Include="Objects\Factory_AbstractFactory\BombType.cs" />
     <Compile Include="Objects\Factory_AbstractFactory\IBombAbstractFactory.cs" />

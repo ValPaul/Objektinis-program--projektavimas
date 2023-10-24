@@ -15,6 +15,8 @@ namespace BombermanMultiplayer
             _player = player;
         }
 
+        public Player.MovementDirection Orientation { get; internal set; }
+
         public virtual void Move()
         {
             _player.Move();

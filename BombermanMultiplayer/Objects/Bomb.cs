@@ -12,7 +12,7 @@ using System.Diagnostics;
 namespace BombermanMultiplayer
 {
     [Serializable]
-    public class Bomb : GameObject, IDisposable, IBomb
+    public class Bomb : GameObject, IDisposable, IBomb // ICloneable<Bomb>
     {
 
         private int _DetonationTime = 2000;
@@ -268,7 +268,27 @@ namespace BombermanMultiplayer
 
         }
 
-        
+        public Bomb Clone()
+        {
+            return (Bomb)this.MemberwiseClone();
+        }
+
+        //public Bomb Clone()
+        //{
+        //    // Create a new instance of Bomb and copy the properties
+        //    Bomb newBomb = new Bomb(CasePosition[0], CasePosition[1], TotalFrames, FrameWidth, FrameHeight, DetonationTime, TileWidth, TileHeight, Proprietary);
+        //    newBomb.Explosing = this.Explosing;
+        //    newBomb.bombPower = this.bombPower;
+
+        //    // Perform a deep copy of properties that are reference types
+        //    newBomb.Sprite = this.Sprite != null ? (Image)this.Sprite.Clone() : null;
+
+        //    // You may need to manually copy other properties here...
+
+        //    return newBomb;
+        //}
+
+
 
 
         #region IDisposable Support

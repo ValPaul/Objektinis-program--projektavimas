@@ -11,6 +11,12 @@ using System.Diagnostics;
 
 namespace BombermanMultiplayer
 {
+    public interface ICloneable<T>
+    {
+        T Clone();
+    }
+
+
     [Serializable]
     public abstract class BombPrototype
     {

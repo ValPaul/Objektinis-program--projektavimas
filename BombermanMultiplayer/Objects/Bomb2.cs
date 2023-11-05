@@ -19,6 +19,8 @@ namespace BombermanMultiplayer
         public bool Explosing = false;
         private int BombPower = 3;
 
+        private BombAbstraction bomb;
+
         //Who drops the Bomb2, player 1 = 1, player 2 = 2
         public short Proprietary;
 
@@ -67,11 +69,17 @@ namespace BombermanMultiplayer
 
             //Charge the sprite
             this.LoadSprite(Properties.Resources.Bombee);
+            this.bomb = new LargeBomb(renderer);
             //Define the proprietary player (who drops this Bomb2)
             this.Proprietary = proprietary;
             this._DetonationTime = detonationTime;
 
             this._frameTime = DetonationTime / 8;
+        }
+
+        public void DropBomb()
+        {
+            bomb.DropBomb();
         }
 
 

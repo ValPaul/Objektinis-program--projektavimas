@@ -13,7 +13,6 @@ public class AdvancedBombRenderer : BombRendererImplementor
 {
     public void Render()
     {
-        // Implement logic for rendering an advanced bomb
         Console.WriteLine("Rendering an advanced bomb.");
     }
 }

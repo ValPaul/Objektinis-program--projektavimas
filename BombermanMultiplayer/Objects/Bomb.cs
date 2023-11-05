@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using System.Media;
 using System.Diagnostics;
+//using BombermanMultiplayer.Objects.Bridge;
 
 namespace BombermanMultiplayer
 {
@@ -281,6 +282,7 @@ namespace BombermanMultiplayer
 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
+        private object renderer;
 
         protected virtual void Dispose(bool disposing)
         {

@@ -72,6 +72,7 @@
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Objects\Bomb2.cs" />
+    <Compile Include="Objects\Facade\BombermanFacade.cs" />
     <Compile Include="Objects\Facade\BombermanGameFacade.cs" />
     <Compile Include="Objects\Facade\Facade_Example.cs" />
     <Compile Include="Objects\Factory_AbstractFactory\BombFactory.cs" />

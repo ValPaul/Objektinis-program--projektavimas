@@ -1,36 +1,44 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using BombermanMultiplayer.Objects;
 
-namespace BombermanMultiplayer.Objects
+namespace BombermanMultiplayer.Objects.Facade
 {
     public class BombermanFacade
     {
-        private readonly IBombAbstractFactory normalBombFactory;
-        private readonly IBombAbstractFactory explosiveBombFactory;
-        private readonly IBombAbstractFactory nonExplosiveBombFactory;
+        private NonExplosiveBombFactory nonExplosiveBombFactory;
+        private BombFactory bombFactory;
+        private Player player;
 
         public BombermanFacade()
         {
-            normalBombFactory = new BombFactory();
-            explosiveBombFactory = new ExplosiveBombFactory();
             nonExplosiveBombFactory = new NonExplosiveBombFactory();
+            bombFactory = new BombFactory();
+            player = new Player(1, 2, 33, 33, 1, 1, 48, 48, 80, 1);
         }
 
-        public IBomb CreateBomb(BombType type, int caseLigne, int caseCol, int totalFrames, int frameWidth, int frameHeight, int detonationTime, int TileWidth, int TileHeight, short proprietary)
+        // Methods to simplify complex interactions for client classes
+        public void CreateNonExplosiveBomb(int row, int column)
         {
-            switch (type)
-            {
-                case BombType.Normal:
-                    return normalBombFactory.CreateBomb(type, caseLigne, caseCol, totalFrames, frameWidth, frameHeight, detonationTime, TileWidth, TileHeight, proprietary);
-                case BombType.Explosive:
-                    return explosiveBombFactory.CreateBomb(type, caseLigne, caseCol, totalFrames, frameWidth, frameHeight, detonationTime, TileWidth, TileHeight, proprietary);
-                case BombType.NonExplosive:
-                    return nonExplosiveBombFactory.CreateBomb(type, caseLigne, caseCol, totalFrames, frameWidth, frameHeight, detonationTime, TileWidth, TileHeight, proprietary);
-                default:
-                    throw new ArgumentException("Unsupported bomb type");
-            }
+            // Use the nonExplosiveBombFactory to create a non-explosive bomb
+            nonExplosiveBombFactory.CreateBomb(BombType.NonExplosive, row, column, 8, 48, 48, 2000, 48, 48, 1);
         }
 
-        // Add more methods for managing bombs in your game if needed
+        public void CreateExplosiveBomb(int row, int column)
+        {
+            // Use the bombFactory to create an explosive bomb
+            bombFactory.CreateBomb(BombType.Explosive, row, column, 8, 48, 48, 2000, 48, 48, 1);
+        }
+
+        public void MovePlayer(Player.MovementDirection direction)
+        {
+            // Move the player using the player class
+            player.Orientation = direction;
+            player.Move();
+        }
+
     }
 }

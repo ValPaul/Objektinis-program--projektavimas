@@ -18,7 +18,7 @@ namespace BombermanMultiplayer
     {
         byte PlayerNumero;
         public string Name = "Player";
-        private byte _Vitesse = 5;
+        private byte _Speed = 5;
         private bool _Dead = false;
         private byte _BombNumb = 2;
         private byte _Lifes = 1;
@@ -28,10 +28,6 @@ namespace BombermanMultiplayer
         public short[] BonusTimer = new short[2];
 
         public MovementDirection Orientation  = MovementDirection.NONE;
-        
-
-        
-
 
         public int Wait = 500;
 
@@ -48,13 +44,10 @@ namespace BombermanMultiplayer
 
         #region Accessors
 
-
-
         public byte Lifes
         {
             get { return _Lifes; }
-            set { 
-                    _Lifes = value; }
+            set { _Lifes = value; }
         }
 
 
@@ -64,39 +57,29 @@ namespace BombermanMultiplayer
             set { _BombNumb = value; }
         }
 
-        public byte Vitesse
+        public byte Speed
         {
-            get { return _Vitesse; }
+            get { return _Speed; }
             set
             {
                 if (value > 0)
-                    _Vitesse = value;
-                else _Vitesse = 2;
+                    _Speed = value;
+                else _Speed = 2;
             }
 
         }
-
-        
-
-
-
 
         public bool Dead
         {
             get { return _Dead; }
             set
             {
-
                 _Dead = value;
-
             }
 
         }
 
         #endregion
-
-
-
 
         public Player(byte lifes, int totalFrames, int frameWidth, int frameHeight, int caseligne, int casecolonne, int TileWidth, int TileHeight, int frameTime, byte playerNumero)
             : base(casecolonne * TileWidth, caseligne * TileHeight, totalFrames, frameWidth, frameHeight, frameTime)
@@ -143,52 +126,51 @@ namespace BombermanMultiplayer
                     this.frameindex = 0;
                     break;
             }
-
         }
 
 
         public void DeplHaut()
         {
-                base.Bouger(0, -Vitesse);
+            base.Move(0, -Speed);
         }
 
         public void DeplBas()
         {
-                base.Bouger(0, Vitesse);
+            base.Move(0, Speed);
         }
 
         public void DeplGauche()
         {
-                base.Bouger(-Vitesse, 0);
+            base.Move(-Speed, 0);
         }
 
         public void DeplDroite()
         {
-                base.Bouger(Vitesse, 0);
+            base.Move(Speed, 0);
         }
 
         public void NO()
         {
-            base.Bouger(-Vitesse / 2, 0);
-            base.Bouger(0, Vitesse / 2);
+            base.Move(-Speed / 2, 0);
+            base.Move(0, Speed / 2);
         }
         public void NE()
         {
             
-            base.Bouger(Vitesse / 2, 0);
-            base.Bouger(0, Vitesse / 2);
+            base.Move(Speed / 2, 0);
+            base.Move(0, Speed / 2);
         }
         public void SO()
         {
 
-            base.Bouger(-Vitesse / 2, 0);
-            base.Bouger(0, -Vitesse / 2);
+            base.Move(-Speed / 2, 0);
+            base.Move(0, -Speed / 2);
         }
         public void SE()
         {
 
-            base.Bouger(Vitesse / 2, 0);
-            base.Bouger(0, -Vitesse / 2);
+            base.Move(Speed / 2, 0);
+            base.Move(0, -Speed / 2);
         }
 
 

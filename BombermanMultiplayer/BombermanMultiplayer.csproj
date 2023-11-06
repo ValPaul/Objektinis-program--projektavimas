@@ -72,10 +72,12 @@
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Objects\Bomb2.cs" />
+    <Compile Include="Objects\Command\Commands.cs" />
     <Compile Include="Objects\Factory_AbstractFactory\BombFactory.cs" />
     <Compile Include="Objects\Factory_AbstractFactory\BombType.cs" />
     <Compile Include="Objects\Factory_AbstractFactory\IBombAbstractFactory.cs" />
     <Compile Include="Objects\Factory_AbstractFactory\IBomb.cs" />
+    <Compile Include="Objects\Command\ICommand.cs" />
     <Compile Include="Objects\NonExplosiveBomb.cs" />
     <Compile Include="Objects\Factory_AbstractFactory\NonExplosiveBombFactory.cs" />
     <Compile Include="SaveGameData.cs" />

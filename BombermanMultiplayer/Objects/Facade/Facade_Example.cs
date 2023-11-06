@@ -1,6 +1,6 @@
 ﻿using System;
 
-// Subsystem classes
+
 class AccountManager
 {
     public void CreateAccount(string accountHolder)
@@ -30,7 +30,6 @@ class NotificationService
     }
 }
 
-// Facade class
 class BankingFacade
 {
     private AccountManager accountManager;

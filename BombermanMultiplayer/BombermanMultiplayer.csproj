@@ -71,6 +71,9 @@
     <Compile Include="MainMenu.Designer.cs">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Objects\Adapter\BombAdapter.cs" />
+    <Compile Include="Objects\Adapter\IAdapter.cs" />
+    <Compile Include="Objects\Adapter\NonExplosiveBombAdapter.cs" />
     <Compile Include="Objects\Bomb2.cs" />
     <Compile Include="Objects\Facade\BombermanFacade.cs" />
     <Compile Include="Objects\Facade\BombermanGameFacade.cs" />

@@ -13,7 +13,7 @@ using BombermanMultiplayer.Objects;
 namespace BombermanMultiplayer
 {
     [Serializable]
-    public class NonExplosiveBomb : GameObject, IDisposable, IBomb
+    public class NonExplosiveBomb : GameObject, IDisposable, IBomb, Objects.Prototype.ICloneable
     {
 
         private int _DetonationTime = 2000;
@@ -157,6 +157,33 @@ namespace BombermanMultiplayer
             Dispose(true);
             // TODO: uncomment the following line if the finalizer is overridden above.
             GC.SuppressFinalize(this);
+        }
+
+        public Objects.Prototype.ICloneable ShallowCopy()
+        {
+            return (NonExplosiveBomb)this.MemberwiseClone();
+        }
+
+        public Objects.Prototype.ICloneable DeepCopy()
+        {
+            // Perform a deep copy of the NonExplosiveBomb instance
+            NonExplosiveBomb clone = new NonExplosiveBomb(
+                this.CasePosition[0],
+                this.CasePosition[1],
+                this.totalFrames,
+               2,
+                2,
+                this.DetonationTime,
+                // Copy other properties as needed
+                5,
+                5,
+                this.Proprietary
+            );
+
+            // If you have more properties, such as collections or other objects that need deep copying,
+            // make sure to copy them here.
+
+            return clone;
         }
         #endregion
 

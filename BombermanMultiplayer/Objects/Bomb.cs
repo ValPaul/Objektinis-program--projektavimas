@@ -12,7 +12,7 @@ using System.Diagnostics;
 namespace BombermanMultiplayer
 {
     [Serializable]
-    public class Bomb : GameObject, IDisposable, IBomb
+    public class Bomb : GameObject, IDisposable, IBomb // ICloneable<Bomb>
     {
 
         private int _DetonationTime = 2000;
@@ -268,7 +268,27 @@ namespace BombermanMultiplayer
 
         }
 
-        
+        //public Bomb Clone()
+        //{
+        //    return (Bomb)this.MemberwiseClone();
+        //}
+
+        public Bomb Clone()
+        {
+           
+            Bomb newBomb = new Bomb(CasePosition[0], CasePosition[1], 1, 1, 1, DetonationTime, 5, 5, Proprietary);
+            newBomb.Explosing = this.Explosing;
+            newBomb.bombPower = this.bombPower;
+
+       
+            newBomb.Sprite = this.Sprite != null ? (Image)this.Sprite.Clone() : null;
+
+          
+
+            return newBomb;
+        }
+
+
 
 
         #region IDisposable Support

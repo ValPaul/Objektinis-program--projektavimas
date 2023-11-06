@@ -80,6 +80,8 @@
     <Compile Include="Objects\Command\ICommand.cs" />
     <Compile Include="Objects\NonExplosiveBomb.cs" />
     <Compile Include="Objects\Factory_AbstractFactory\NonExplosiveBombFactory.cs" />
+    <Compile Include="Objects\Prototype\BombPrototype.cs" />
+    <Compile Include="Objects\Prototype\ICloneable.cs" />
     <Compile Include="Objects\Observer\Observer.cs" />
     <Compile Include="Objects\Observer\ObserverManager.cs" />
     <Compile Include="Objects\Strategy\GoRight.cs" />

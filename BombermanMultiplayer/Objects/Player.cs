@@ -10,13 +10,15 @@ using System.Media;
 using System.Diagnostics;
 using System.Collections;
 using BombermanMultiplayer.Objects;
+using BombermanMultiplayer.Objects.Prototype;
 using BombermanMultiplayer.Objects.Strategy;
 using BombermanMultiplayer.Objects.Observer;
+using BombermanMultiplayer.Objects.Prototype.ICloneable;
 
 namespace BombermanMultiplayer
 {
     [Serializable]
-    public class Player : GameObject, Observer
+    public class Player : GameObject, Observer, ICloneable
     {
         public byte PlayerNumero;
         public string Name = "Player";
@@ -24,6 +26,7 @@ namespace BombermanMultiplayer
         private bool _Dead = false;
         private byte _BombNumb = 2;
         private byte _Lifes = 1;
+
 
         //Player can have 2 bonus at the same time
         public BonusType[] BonusSlot = new BonusType[2];
@@ -94,6 +97,15 @@ namespace BombermanMultiplayer
 
         }
 
+
+        //public void DropBomb(BombPrototype bombPrototype)
+        //{
+
+        //    Bomb newBomb = bombPrototype.CreateBomb();
+
+        //    BombsOnTheMap.Add(newBomb);
+
+        //}
         #region Deplacements
 
 
@@ -388,6 +400,28 @@ namespace BombermanMultiplayer
 
 
         }
+
+        public Objects.Prototype.ICloneable ShallowCopy()
+        {
+            return (Player)this.MemberwiseClone();
+        }
+
+        public Objects.Prototype.ICloneable DeepCopy()
+        {
+            Player clone = new Player(this.Lifes, this.totalFrames, 50, 40, this.CasePosition[0], this.CasePosition[1], 2, 2, 10, this.PlayerNumero);
+
+            clone.Name = this.Name;
+            clone.Vitesse = this.Vitesse;
+            clone.Dead = this.Dead;
+            clone.BombNumb = this.BombNumb;
+            clone.BonusSlot = (BonusType[])this.BonusSlot.Clone(); // Deep copy of an array
+            clone.BonusTimer = (short[])this.BonusTimer.Clone(); // Deep copy of an array
+            clone.Orientation = this.Orientation;
+
+
+            return clone;
+        }
+
 
 
         #endregion

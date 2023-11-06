@@ -263,6 +263,23 @@ namespace BombermanMultiplayer
 
         }
 
+        public Bomb2 Clone()
+        {
+            return (Bomb2)this.MemberwiseClone();
+        }
+
+
+        //public Bomb2 Clone()
+        //{
+        //    // Create a new instance of Bomb2 and copy the properties
+        //    Bomb2 newBomb2 = (Bomb2)this.MemberwiseClone();
+
+        //    // Perform a deep copy of properties that are reference types
+        //    newBomb2.Sprite = this.Sprite != null ? (Image)this.Sprite.Clone() : null;
+
+        //    // Return the deep copy
+        //    return newBomb2;
+        //}
 
 
 

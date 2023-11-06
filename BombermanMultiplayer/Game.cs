@@ -1,4 +1,5 @@
-﻿using BombermanMultiplayer.Objects.Observer;
+using BombermanMultiplayer.Objects.Prototype;
+using BombermanMultiplayer.Objects.Observer;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+using ICloneable = BombermanMultiplayer.Objects.Prototype.ICloneable;
 
 namespace BombermanMultiplayer
 {
@@ -26,6 +28,13 @@ namespace BombermanMultiplayer
 
         public List<IBomb> BombsOnTheMap;
         public System.Timers.Timer LogicTimer;
+        private object originalBomb;
+        private List<NonExplosiveBomb> bombsOnTheMap = new List<NonExplosiveBomb>();
+
+
+
+
+
 
         //ctor when picture box size is determined
         public Game(int hebergeurWidth, int hebergeurHeight)
@@ -56,6 +65,7 @@ namespace BombermanMultiplayer
             this.BombsOnTheMap = save.bombsOnTheMap;
             this.LogicTimer = new System.Timers.Timer(40);
             this.LogicTimer.Elapsed += LogicTimer_Elapsed;
+
         }
         //default ctor
         public Game()
@@ -221,6 +231,12 @@ namespace BombermanMultiplayer
                 case Keys.Escape:
                     Pause();
                     break;
+                case Keys.Y:
+                    CreateDeepCopyOfBomb();
+                    break;
+                case Keys.U:
+                    CreateShallowCopyOfBomb();
+                    break;
             }
         }
 
@@ -263,7 +279,7 @@ namespace BombermanMultiplayer
                     sender.Orientation = Player.MovementDirection.RIGHT;
                     break;
                 case Keys.Space:
-                    sender.DropBomb(this.world.MapGrid, this.BombsOnTheMap, otherPlayer);
+                    sender.DropBomb(this.world.MapGrid, this.BombsOnTheMap, otherPlayer); //shallow copy
                     observerManager.Notify("Player " + sender.PlayerNumero + " has placed a bomb");
                     break;
                 case Keys.ControlKey:
@@ -706,6 +722,33 @@ namespace BombermanMultiplayer
                     Paused = true;
                 }
             }
+        }
+
+        public void CreateShallowCopyOfBomb()
+        {
+            NonExplosiveBomb originalBomb = new NonExplosiveBomb(1, 1, 1, 2, 2, 4, 5, 5, 1);
+
+            ICloneable shallowCopy = originalBomb.ShallowCopy();
+
+            NonExplosiveBomb newBomb = (NonExplosiveBomb)shallowCopy;
+
+            newBomb.DetonationTime = 1000;
+
+            bombsOnTheMap.Add(newBomb);
+        }
+
+        public void CreateDeepCopyOfBomb()
+        {
+            NonExplosiveBomb originalBomb = new NonExplosiveBomb(1, 1, 1, 2, 2, 4, 5, 5, 1);
+
+            ICloneable deepCopy = originalBomb.DeepCopy();
+
+            NonExplosiveBomb newBomb = (NonExplosiveBomb)deepCopy;
+
+            newBomb.DetonationTime = 1000;
+
+
+            bombsOnTheMap.Add(newBomb);
         }
     }
 }

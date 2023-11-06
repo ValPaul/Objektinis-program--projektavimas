@@ -1,3 +1,4 @@
+using BombermanMultiplayer.Objects.Facade;
 using BombermanMultiplayer.Objects.Prototype;
 using BombermanMultiplayer.Objects.Observer;
 using System;
@@ -188,6 +189,7 @@ namespace BombermanMultiplayer
                     if (player1.Dead)
                         break;
                     player1.DropBomb(this.world.MapGrid, this.BombsOnTheMap, player2);
+                    ShowFacadeUsageExample();
                     break;
                 case Keys.A:
                     if (player1.Dead)
@@ -724,6 +726,18 @@ namespace BombermanMultiplayer
             }
         }
 
+
+        public void ShowFacadeUsageExample()
+        {
+            BombermanFacade bombermanFacade = new BombermanFacade();
+
+            // Create a non-explosive bomb
+            bombermanFacade.CreateNonExplosiveBomb(1, 2);
+
+            // Move the player
+            bombermanFacade.MovePlayer(Player.MovementDirection.UP);
+        }
+
         public void CreateShallowCopyOfBomb()
         {
             NonExplosiveBomb originalBomb = new NonExplosiveBomb(1, 1, 1, 2, 2, 4, 5, 5, 1);
@@ -749,6 +763,7 @@ namespace BombermanMultiplayer
 
 
             bombsOnTheMap.Add(newBomb);
+
         }
     }
 }

@@ -172,7 +172,7 @@ namespace BombermanMultiplayer
                     if (player1.Dead)
                         break;
                     player1.DropBomb(this.world.MapGrid, this.BombsOnTheMap, player2);
-                    ShowUsageExample();
+                    ShowFacadeUsageExample();
                     break;
                 case Keys.A:
                     if (player1.Dead)
@@ -702,7 +702,7 @@ namespace BombermanMultiplayer
             }
         }
 
-        public void ShowUsageExample()
+        public void ShowFacadeUsageExample()
         {
             BombermanFacade bombermanFacade = new BombermanFacade();
 

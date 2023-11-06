@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+using ICloneable = BombermanMultiplayer.Objects.Prototype.ICloneable;
 
 namespace BombermanMultiplayer
 {
@@ -25,9 +26,11 @@ namespace BombermanMultiplayer
 
         public List<IBomb> BombsOnTheMap;
         public System.Timers.Timer LogicTimer;
+        private object originalBomb;
+        private List<NonExplosiveBomb> bombsOnTheMap = new List<NonExplosiveBomb>();
 
-       
-        BombPrototype bombPrototype = new BombPrototype();
+
+
 
 
 
@@ -221,6 +224,12 @@ namespace BombermanMultiplayer
                 case Keys.Escape:
                     Pause();
                     break;
+                case Keys.Y:
+                    CreateDeepCopyOfBomb();
+                    break;
+                case Keys.U:
+                    CreateShallowCopyOfBomb();
+                    break;
             }
         }
 
@@ -229,10 +238,6 @@ namespace BombermanMultiplayer
         {
             Player sender = null;
             Player otherPlayer = null;
-
-            BombPrototype shallowCopy = bombPrototype.ShallowCopy();
-
-            BombPrototype deepCopy = bombPrototype.DeepCopy();
 
             switch (Station)
             {
@@ -710,6 +715,33 @@ namespace BombermanMultiplayer
                     Paused = true;
                 }
             }
+        }
+
+        public void CreateShallowCopyOfBomb()
+        {
+            NonExplosiveBomb originalBomb = new NonExplosiveBomb(1, 1, 1, 2, 2, 4, 5, 5, 1);
+
+            ICloneable shallowCopy = originalBomb.ShallowCopy();
+
+            NonExplosiveBomb newBomb = (NonExplosiveBomb)shallowCopy;
+
+            newBomb.DetonationTime = 1000;
+
+            bombsOnTheMap.Add(newBomb);
+        }
+
+        public void CreateDeepCopyOfBomb()
+        {
+            NonExplosiveBomb originalBomb = new NonExplosiveBomb(1, 1, 1, 2, 2, 4, 5, 5, 1);
+
+            ICloneable deepCopy = originalBomb.DeepCopy();
+
+            NonExplosiveBomb newBomb = (NonExplosiveBomb)deepCopy;
+
+            newBomb.DetonationTime = 1000;
+
+
+            bombsOnTheMap.Add(newBomb);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BombermanMultiplayer.Objects.Prototype;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -25,6 +26,11 @@ namespace BombermanMultiplayer
         public List<IBomb> BombsOnTheMap;
         public System.Timers.Timer LogicTimer;
 
+       
+        BombPrototype bombPrototype = new BombPrototype();
+
+
+
         //ctor when picture box size is determined
         public Game(int hebergeurWidth, int hebergeurHeight)
         {
@@ -49,6 +55,7 @@ namespace BombermanMultiplayer
             this.BombsOnTheMap = save.bombsOnTheMap;
             this.LogicTimer = new System.Timers.Timer(40);
             this.LogicTimer.Elapsed += LogicTimer_Elapsed;
+
         }
         //default ctor
         public Game()
@@ -223,6 +230,10 @@ namespace BombermanMultiplayer
             Player sender = null;
             Player otherPlayer = null;
 
+            BombPrototype shallowCopy = bombPrototype.ShallowCopy();
+
+            BombPrototype deepCopy = bombPrototype.DeepCopy();
+
             switch (Station)
             {
                 case Sender.Player1:
@@ -256,7 +267,8 @@ namespace BombermanMultiplayer
                     sender.Orientation = Player.MovementDirection.RIGHT;
                     break;
                 case Keys.Space:
-                    sender.DropBomb(this.world.MapGrid, this.BombsOnTheMap, otherPlayer);
+                    sender.DropBomb(this.world.MapGrid, this.BombsOnTheMap, otherPlayer); //shallow copy
+
                     break;
                 case Keys.ControlKey:
                     sender.Deactivate(this.world.MapGrid, BombsOnTheMap, otherPlayer);

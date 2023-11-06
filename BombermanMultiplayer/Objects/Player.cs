@@ -10,6 +10,7 @@ using System.Media;
 using System.Diagnostics;
 using System.Collections;
 using BombermanMultiplayer.Objects;
+using BombermanMultiplayer.Objects.Prototype;
 
 namespace BombermanMultiplayer
 {
@@ -22,6 +23,8 @@ namespace BombermanMultiplayer
         private bool _Dead = false;
         private byte _BombNumb = 2;
         private byte _Lifes = 1;
+
+        private BombPrototype bombPrototype;
 
         //Player can have 2 bonus at the same time
         public BonusType[] BonusSlot = new BonusType[2];
@@ -108,7 +111,20 @@ namespace BombermanMultiplayer
 
 
         }
+        public Player(BombPrototype bombPrototype)
+        {
+            this.bombPrototype = bombPrototype;
+        }
 
+
+        //public void DropBomb(BombPrototype bombPrototype)
+        //{
+
+        //    Bomb newBomb = bombPrototype.CreateBomb();
+
+        //    BombsOnTheMap.Add(newBomb);
+
+        //}
         #region Deplacements
 
 

@@ -1,4 +1,5 @@
-﻿using BombermanMultiplayer.Objects.Prototype;
+using BombermanMultiplayer.Objects.Prototype;
+using BombermanMultiplayer.Objects.Observer;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -23,6 +24,7 @@ namespace BombermanMultiplayer
 
         public World world;
         public Player player1, player2;
+        public ObserverManager observerManager;
 
         public List<IBomb> BombsOnTheMap;
         public System.Timers.Timer LogicTimer;
@@ -41,6 +43,11 @@ namespace BombermanMultiplayer
 
             player1 = new Player(1, 2, 33, 33, 1, 1, 48, 48, 80, 1);
             player2 = new Player(1, 2, 33, 33, this.world.MapGrid.GetLength(0) - 2, this.world.MapGrid.GetLength(0) - 2, 48, 48, 80, 2);
+
+            observerManager = new ObserverManager();
+
+            observerManager.subscribe(player1);
+            observerManager.subscribe(player2);
 
             this.BombsOnTheMap = new List<IBomb>();
             this.LogicTimer = new System.Timers.Timer(40);
@@ -273,7 +280,7 @@ namespace BombermanMultiplayer
                     break;
                 case Keys.Space:
                     sender.DropBomb(this.world.MapGrid, this.BombsOnTheMap, otherPlayer); //shallow copy
-
+                    observerManager.Notify("Player " + sender.PlayerNumero + " has placed a bomb");
                     break;
                 case Keys.ControlKey:
                     sender.Deactivate(this.world.MapGrid, BombsOnTheMap, otherPlayer);
@@ -437,7 +444,7 @@ namespace BombermanMultiplayer
                     {
                         if (player.BonusSlot[i] == Objects.BonusType.SpeedBoost)
                         {
-                            player.Vitesse /= 2;
+                            player.Speed /= 2;
                         }
 
                         player.BonusSlot[i] = Objects.BonusType.None;
@@ -470,7 +477,7 @@ namespace BombermanMultiplayer
                             break;
                         case Objects.BonusType.SpeedBoost:
                             player.BonusSlot[freeSlot] = Objects.BonusType.SpeedBoost;
-                            player.Vitesse *= 2;
+                            player.Speed *= 2;
                             player.BonusTimer[freeSlot] = 5000;
                             break;
                         case Objects.BonusType.Desamorce:
@@ -548,7 +555,7 @@ namespace BombermanMultiplayer
                     {
                         //UP
                         //Temporary version of player collision box with expected position after deplacement
-                        Rectangle rect = new Rectangle(movingPlayer.Source.X, movingPlayer.Source.Y - movingPlayer.Vitesse, movingPlayer.Source.Width, movingPlayer.Source.Height);
+                        Rectangle rect = new Rectangle(movingPlayer.Source.X, movingPlayer.Source.Y - movingPlayer.Speed, movingPlayer.Source.Width, movingPlayer.Source.Height);
 
                         if (!map[lig - 1, col - 1].Walkable || map[lig - 1, col - 1].Occupied)
                         {
@@ -572,7 +579,7 @@ namespace BombermanMultiplayer
                 case Player.MovementDirection.DOWN:
                     {
                         //DOWN
-                        Rectangle rect = new Rectangle(movingPlayer.Source.X, movingPlayer.Source.Y + movingPlayer.Vitesse, movingPlayer.Source.Width, movingPlayer.Source.Height);
+                        Rectangle rect = new Rectangle(movingPlayer.Source.X, movingPlayer.Source.Y + movingPlayer.Speed, movingPlayer.Source.Width, movingPlayer.Source.Height);
 
                         if (!map[lig + 1, col - 1].Walkable || map[lig + 1, col - 1].Occupied)
                         {
@@ -596,7 +603,7 @@ namespace BombermanMultiplayer
                 case Player.MovementDirection.LEFT:
                     {
                         //LEFT
-                        Rectangle rect = new Rectangle(movingPlayer.Source.X - movingPlayer.Vitesse, movingPlayer.Source.Y, movingPlayer.Source.Width, movingPlayer.Source.Height);
+                        Rectangle rect = new Rectangle(movingPlayer.Source.X - movingPlayer.Speed, movingPlayer.Source.Y, movingPlayer.Source.Width, movingPlayer.Source.Height);
                         if (!map[lig - 1, col - 1].Walkable || map[lig - 1, col - 1].Occupied)
                         {
                             if (CheckCollisionRectangle(rect, map[lig - 1, col - 1].Source))
@@ -618,7 +625,7 @@ namespace BombermanMultiplayer
                     break;
                 case Player.MovementDirection.RIGHT:
                     {
-                        Rectangle rect = new Rectangle(movingPlayer.Source.X + movingPlayer.Vitesse, movingPlayer.Source.Y, movingPlayer.Source.Width, movingPlayer.Source.Height);
+                        Rectangle rect = new Rectangle(movingPlayer.Source.X + movingPlayer.Speed, movingPlayer.Source.Y, movingPlayer.Source.Width, movingPlayer.Source.Height);
                         //RIGHT
                         if (!map[lig - 1, col + 1].Walkable || map[lig - 1, col + 1].Occupied)
                         {

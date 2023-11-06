@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BombermanMultiplayer</RootNamespace>
     <AssemblyName>BombermanMultiplayer</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -72,14 +72,24 @@
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Objects\Bomb2.cs" />
+    <Compile Include="Objects\Command\Commands.cs" />
     <Compile Include="Objects\Factory_AbstractFactory\BombFactory.cs" />
     <Compile Include="Objects\Factory_AbstractFactory\BombType.cs" />
     <Compile Include="Objects\Factory_AbstractFactory\IBombAbstractFactory.cs" />
     <Compile Include="Objects\Factory_AbstractFactory\IBomb.cs" />
+    <Compile Include="Objects\Command\ICommand.cs" />
     <Compile Include="Objects\NonExplosiveBomb.cs" />
     <Compile Include="Objects\Factory_AbstractFactory\NonExplosiveBombFactory.cs" />
     <Compile Include="Objects\Prototype\BombPrototype.cs" />
     <Compile Include="Objects\Prototype\ICloneable.cs" />
+    <Compile Include="Objects\Observer\Observer.cs" />
+    <Compile Include="Objects\Observer\ObserverManager.cs" />
+    <Compile Include="Objects\Strategy\GoRight.cs" />
+    <Compile Include="Objects\Strategy\GoLeft.cs" />
+    <Compile Include="Objects\Strategy\GoDown.cs" />
+    <Compile Include="Objects\Strategy\GoUp.cs" />
+    <Compile Include="Objects\Strategy\Strategy.cs" />
+    <Compile Include="Objects\Strategy\StrategyClass.cs" />
     <Compile Include="SaveGameData.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameState.cs" />
@@ -120,6 +130,7 @@
     <Compile Include="World\World.cs" />
     <EmbeddedResource Include="GameWindow.resx">
       <DependentUpon>GameWindow.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Lobby.resx">
       <DependentUpon>Lobby.cs</DependentUpon>

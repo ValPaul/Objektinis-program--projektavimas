@@ -78,6 +78,7 @@
     <Compile Include="Objects\Factory_AbstractFactory\IBomb.cs" />
     <Compile Include="Objects\NonExplosiveBomb.cs" />
     <Compile Include="Objects\Factory_AbstractFactory\NonExplosiveBombFactory.cs" />
+    <Compile Include="Objects\Prototype\BombPrototype.cs" />
     <Compile Include="Objects\Prototype\ICloneable.cs" />
     <Compile Include="SaveGameData.cs" />
     <Compile Include="Game.cs" />

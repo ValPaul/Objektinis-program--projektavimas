@@ -15,12 +15,12 @@ using System.Data.Common;
 using BombermanMultiplayer.Objects.Prototype;
 using BombermanMultiplayer.Objects.Strategy;
 using BombermanMultiplayer.Objects.Observer;
-using BombermanMultiplayer.Objects.Prototype.ICloneable;
+using BombermanMultiplayer.Objects.Prototype;
 
 namespace BombermanMultiplayer
 {
     [Serializable]
-    public class Player : GameObject, Observer, ICloneable
+    public class Player : GameObject, Observer, IPrototype
     {
         public byte PlayerNumero;
         public string Name = "Player";
@@ -416,17 +416,16 @@ namespace BombermanMultiplayer
 
         }
 
-        public Objects.Prototype.ICloneable ShallowCopy()
+        public Objects.Prototype.IPrototype ShallowCopy()
         {
             return (Player)this.MemberwiseClone();
         }
 
-        public Objects.Prototype.ICloneable DeepCopy()
+        public Objects.Prototype.IPrototype DeepCopy()
         {
             Player clone = new Player(this.Lifes, this.totalFrames, 50, 40, this.CasePosition[0], this.CasePosition[1], 2, 2, 10, this.PlayerNumero);
 
             clone.Name = this.Name;
-            clone.Vitesse = this.Vitesse;
             clone.Dead = this.Dead;
             clone.BombNumb = this.BombNumb;
             clone.BonusSlot = (BonusType[])this.BonusSlot.Clone(); // Deep copy of an array

@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
-using ICloneable = BombermanMultiplayer.Objects.Prototype.ICloneable;
+using IPrototype = BombermanMultiplayer.Objects.Prototype.IPrototype;
 
 namespace BombermanMultiplayer
 {
@@ -742,7 +742,7 @@ namespace BombermanMultiplayer
         {
             NonExplosiveBomb originalBomb = new NonExplosiveBomb(1, 1, 1, 2, 2, 4, 5, 5, 1);
 
-            ICloneable shallowCopy = originalBomb.ShallowCopy();
+            IPrototype shallowCopy = originalBomb.ShallowCopy();
 
             NonExplosiveBomb newBomb = (NonExplosiveBomb)shallowCopy;
 
@@ -755,7 +755,7 @@ namespace BombermanMultiplayer
         {
             NonExplosiveBomb originalBomb = new NonExplosiveBomb(1, 1, 1, 2, 2, 4, 5, 5, 1);
 
-            ICloneable deepCopy = originalBomb.DeepCopy();
+            IPrototype deepCopy = originalBomb.DeepCopy();
 
             NonExplosiveBomb newBomb = (NonExplosiveBomb)deepCopy;
 

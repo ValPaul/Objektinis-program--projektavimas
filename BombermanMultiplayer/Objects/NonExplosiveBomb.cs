@@ -8,12 +8,12 @@ using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using System.Media;
 using System.Diagnostics;
-using BombermanMultiplayer.Objects;
+using BombermanMultiplayer.Objects.Prototype;
 
 namespace BombermanMultiplayer
 {
     [Serializable]
-    public class NonExplosiveBomb : GameObject, IDisposable, IBomb, Objects.Prototype.ICloneable
+    public class NonExplosiveBomb : GameObject, IDisposable, IBomb, IPrototype
     {
 
         private int _DetonationTime = 2000;
@@ -159,12 +159,12 @@ namespace BombermanMultiplayer
             GC.SuppressFinalize(this);
         }
 
-        public Objects.Prototype.ICloneable ShallowCopy()
+        public Objects.Prototype.IPrototype ShallowCopy()
         {
             return (NonExplosiveBomb)this.MemberwiseClone();
         }
 
-        public Objects.Prototype.ICloneable DeepCopy()
+        public Objects.Prototype.IPrototype DeepCopy()
         {
             // Perform a deep copy of the NonExplosiveBomb instance
             NonExplosiveBomb clone = new NonExplosiveBomb(

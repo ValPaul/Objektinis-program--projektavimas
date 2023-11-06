@@ -3,9 +3,9 @@
 namespace BombermanMultiplayer.Objects.Prototype
 {
     // Define a prototype interface for cloning objects
-    public interface ICloneable
+    public interface IPrototype
     {
-        ICloneable ShallowCopy();
-        ICloneable DeepCopy();
+        IPrototype ShallowCopy();
+        IPrototype DeepCopy();
     }
 }

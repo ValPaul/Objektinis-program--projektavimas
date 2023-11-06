@@ -12,7 +12,7 @@ using System.Diagnostics;
 namespace BombermanMultiplayer
 {
     [Serializable]
-    public class Bomb : GameObject, IDisposable, IBomb // ICloneable<Bomb>
+    public class Bomb : GameObject, IDisposable, IBomb // IPrototype<Bomb>
     {
 
         private int _DetonationTime = 2000;

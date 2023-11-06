@@ -10,13 +10,15 @@ using System.Media;
 using System.Diagnostics;
 using System.Collections;
 using BombermanMultiplayer.Objects;
+using BombermanMultiplayer.Objects.Strategy;
+using BombermanMultiplayer.Objects.Observer;
 
 namespace BombermanMultiplayer
 {
     [Serializable]
-    public class Player : GameObject
+    public class Player : GameObject, Observer
     {
-        byte PlayerNumero;
+        public byte PlayerNumero;
         public string Name = "Player";
         private byte _Speed = 5;
         private bool _Dead = false;
@@ -103,24 +105,35 @@ namespace BombermanMultiplayer
             this.CasePosition[0] = (this.Source.Y + this.Source.Height / 2) / tileHeight; //Ligne
             this.CasePosition[1] = (this.Source.X + this.Source.Width / 2) / tileWidth; //Colonne
 
+        }
 
+        public void update(string text)
+        {
+            Console.WriteLine(text);
         }
 
         public void Move()
         {
+
+            StrategyClass strategy = new StrategyClass();
+
             switch (this.Orientation)
             {
                 case MovementDirection.UP:
-                    DeplHaut();
+                    strategy.setStrategy(new GoUp());
+                    strategy.executeStrategy(this);
                     break;
                 case MovementDirection.DOWN:
-                    DeplBas();
+                    strategy.setStrategy(new GoDown());
+                    strategy.executeStrategy(this);
                     break;
                 case MovementDirection.LEFT:
-                    DeplGauche();
+                    strategy.setStrategy(new GoLeft());
+                    strategy.executeStrategy(this);
                     break;
                 case MovementDirection.RIGHT:
-                    DeplDroite();
+                    strategy.setStrategy(new GoRight());
+                    strategy.executeStrategy(this);
                     break;
                 default:
                     this.frameindex = 0;

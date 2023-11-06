@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BombermanMultiplayer.Objects.Observer;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace BombermanMultiplayer
 
         public World world;
         public Player player1, player2;
+        public ObserverManager observerManager;
 
         public List<IBomb> BombsOnTheMap;
         public System.Timers.Timer LogicTimer;
@@ -32,6 +34,11 @@ namespace BombermanMultiplayer
 
             player1 = new Player(1, 2, 33, 33, 1, 1, 48, 48, 80, 1);
             player2 = new Player(1, 2, 33, 33, this.world.MapGrid.GetLength(0) - 2, this.world.MapGrid.GetLength(0) - 2, 48, 48, 80, 2);
+
+            observerManager = new ObserverManager();
+
+            observerManager.subscribe(player1);
+            observerManager.subscribe(player2);
 
             this.BombsOnTheMap = new List<IBomb>();
             this.LogicTimer = new System.Timers.Timer(40);
@@ -257,6 +264,7 @@ namespace BombermanMultiplayer
                     break;
                 case Keys.Space:
                     sender.DropBomb(this.world.MapGrid, this.BombsOnTheMap, otherPlayer);
+                    observerManager.Notify("Player " + sender.PlayerNumero + " has placed a bomb");
                     break;
                 case Keys.ControlKey:
                     sender.Deactivate(this.world.MapGrid, BombsOnTheMap, otherPlayer);

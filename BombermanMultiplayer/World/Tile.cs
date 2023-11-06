@@ -68,10 +68,10 @@ namespace BombermanMultiplayer
                 this.BonusHere.LoadSprite(Properties.Resources.Armor);
             }
 
-            if (this.BonusHere != null)
-            {
-                this.BonusHere.CheckCasePosition(this.Source.Width, this.Source.Height);
-            }
+            //if (this.BonusHere != null)
+            //{
+            //    this.BonusHere.CheckCasePosition(this.Source.Width, this.Source.Height);
+            //}
         }
 
         public new void Draw(Graphics gr)

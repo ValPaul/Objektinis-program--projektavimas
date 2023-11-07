@@ -1,12 +1,10 @@
 ﻿using System;
 
-// Prototype interface for bombs
 interface IBombPrototype
 {
     IBombPrototype Clone();
 }
 
-// Concrete Bomb objects
 class Bomb : IBombPrototype
 {
     public int Power { get; set; }

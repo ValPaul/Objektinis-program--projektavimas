@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BombermanMultiplayer.Objects.Proxy;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,70 +15,33 @@ namespace BombermanMultiplayer
 {
     public class Client
     {
-        TcpClient sender;
-        IFormatter formatter;
-        NetworkStream stream;
-        
+        private ITcpClient sender;
+
         public Client(string endPointIP, int endPointPort)
         {
-
-            try
-            {
-                sender = new TcpClient(endPointIP, endPointPort);
-                stream = sender.GetStream();
-                formatter = new BinaryFormatter();
-            }
-            catch (IOException se)
-            {
-                MessageBox.Show("A connection error occured, connection closed, please restart the game");
-                this.sender.Close();
-            }
-            catch (SocketException se)
-            {
-                MessageBox.Show("Unable to connect");
-                this.sender.Close();
-            }
-            catch (Exception) { }
+            this.sender = new TcpClientProxy();
+            this.sender.Connect(endPointIP, endPointPort);
         }
 
-        public void sendData(Packet obj)
+        public void SendData(Packet obj)
         {
-            try
-            {
-               formatter.Serialize(stream, obj);
-               stream.Flush();
-            }
-            catch (IOException se)
-            {
-                MessageBox.Show("A connection error occured, connection close, please restart the game");
-                this.sender.Close();
-                
-            }
-            catch (SocketException se)
-            {
-                MessageBox.Show("A connection error occured, connection close, please restart the game");
-                this.sender.Close();
-            }
-            catch (Exception) { }
+            this.sender.SendData(obj);
         }
 
-        public void RecvData(ref Packet obj)
+        public void ReceiveData(ref Packet obj)
         {
-            while (stream.DataAvailable)
-            {
-                obj = (Packet)formatter.Deserialize(stream);
-            }
+            this.sender.ReceiveData(ref obj);
         }
 
         public void Disconnect()
         {
-            this.sender.Close();
+            this.sender.Disconnect();
         }
 
         public bool GetConnectionState()
         {
-            return this.sender.Connected;
+            return this.sender.GetConnectionState();
         }
-
     }
+
 }

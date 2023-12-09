@@ -23,6 +23,11 @@ namespace BombermanMultiplayer.Objects.Proxy
 
         public void Connect(string endPointIP, int endPointPort)
         {
+            if (endPointIP == "") {
+                MessageBox.Show("EndPointIP is missing");
+                throw new Exception();
+            }
+
             try
             {
                 this.client = new TcpClient(endPointIP, endPointPort);

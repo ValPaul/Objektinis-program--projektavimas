@@ -111,7 +111,7 @@ namespace BombermanMultiplayer
         }
 
         
-        public void LoadSprite(Image sprite)
+        public virtual void LoadSprite(Image sprite)
         {
 
             this.Sprite = sprite;

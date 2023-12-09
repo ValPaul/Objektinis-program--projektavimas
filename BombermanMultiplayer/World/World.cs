@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using System.Media;
 using System.Diagnostics;
+using BombermanMultiplayer.Objects.P2.Flyweight;
 
 namespace BombermanMultiplayer
 {
@@ -17,7 +18,7 @@ namespace BombermanMultiplayer
         public Tile[,] MapGrid;
         [NonSerialized]
         private Image Background_;
-
+        public FireFactory fireFactory;
 
         public Image Background
         {
@@ -86,6 +87,8 @@ namespace BombermanMultiplayer
                     }
                     if (MapGrid[i, j].Fire)
                     {
+                        Fire fire = new Fire(i,j, fireFactory.getFireType("normal", "red", Properties.Resources.Fire));
+                        fire.Draw();
                         MapGrid[i, j].LoadSprite(Properties.Resources.Fire);
                     }
                     else if (MapGrid[i, j].Walkable && !MapGrid[i, j].Fire)
@@ -102,16 +105,18 @@ namespace BombermanMultiplayer
         public World(int hebergeurWidth, int hebergeurHeight, int TILE_WIDTH, int TILE_HEIGHT, int totalFrameTile)
         {
             CreateWorldGrid(hebergeurWidth, hebergeurHeight, TILE_WIDTH, TILE_HEIGHT, totalFrameTile);
+            fireFactory = new FireFactory();
         }
 
         public World(int hebergeurWidth, int hebergeurHeight, Tile[,] map)
         {
             this.MapGrid = map;
+            fireFactory = new FireFactory();
         }
 
         public World()
         {
-
+            fireFactory = new FireFactory();
         }
 
         public void CreateWorldGrid(int hebergeurWidth, int hebergeurHeight, int TILE_WIDTH, int TILE_HEIGHT, int totalFrameTile)

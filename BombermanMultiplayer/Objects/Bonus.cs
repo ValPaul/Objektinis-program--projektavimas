@@ -1,9 +1,10 @@
-﻿using System;
+﻿using BombermanMultiplayer.Objects.P2.Composite;
+using System;
 using System.Drawing;
 
 namespace BombermanMultiplayer.Objects
 {
-    public class Bonus : GameObject
+    public class Bonus : GameObject, IBonus
     {
         public BonusType Type = BonusType.None;
 
@@ -42,6 +43,11 @@ namespace BombermanMultiplayer.Objects
         {
             this.CasePosition[0] = this.Source.Y / TileWidth; // Ligne
             this.CasePosition[1] = this.Source.X / TileWidth; // Colonne
+        }
+
+        public void Remove()
+        {
+            UnloadSprite();
         }
     }
 

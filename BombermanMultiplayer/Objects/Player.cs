@@ -16,11 +16,14 @@ using BombermanMultiplayer.Objects.Prototype;
 using BombermanMultiplayer.Objects.Strategy;
 using BombermanMultiplayer.Objects.Observer;
 using BombermanMultiplayer.Objects.Prototype;
+using BombermanMultiplayer.Objects.P2.Iterator;
+using BombermanMultiplayer.Objects.P2.Composite;
+using BombermanMultiplayer.Objects.P2.State;
 
 namespace BombermanMultiplayer
 {
     [Serializable]
-    public class Player : GameObject, Observer, IPrototype
+    public class Player : GameObject, Observer, IPrototype, IBonus, IState
     {
         public byte PlayerNumero;
         public string Name = "Player";
@@ -29,7 +32,9 @@ namespace BombermanMultiplayer
         private byte _BombNumb = 2;
         private byte _Lifes = 1;
 
-
+        private IState currentState;
+        private List<IBonus> components = new List<IBonus> ();
+        BombLogCollection BombLogList = new BombLogCollection();
         //Player can have 2 bonus at the same time
         public BonusType[] BonusSlot = new BonusType[2];
         public short[] BonusTimer = new short[2];
@@ -95,7 +100,7 @@ namespace BombermanMultiplayer
             Lifes = lifes;
             Wait = 0;
             PlayerNumero = playerNumero;
-
+            currentState = new AliveState();
 
         }
 
@@ -213,10 +218,11 @@ namespace BombermanMultiplayer
             {
                 if (!MapGrid[this.CasePosition[0], this.CasePosition[1]].Occupied)
                 {
+                    
 
                     IBomb bombFactory = null;
 
-                    int randomNumber = new Random().Next(1,10);
+                    int randomNumber = new Random().Next(1, 10);
 
                     if (randomNumber <= 8)
                     {
@@ -229,7 +235,7 @@ namespace BombermanMultiplayer
 
                         bombFactory = new NonExplosiveBombFactory().CreateBomb(BombType.NonExplosive, this.CasePosition[0], this.CasePosition[1], 8, 48, 48, 2000, 48, 48, this.PlayerNumero);
                     }
-
+                    BombLogList.addItem(string.Format("Player: {0} placed a bomb", this.PlayerNumero));
                     BombsOnTheMap.Add(bombFactory);
                     //Case obtain a reference to the bomb dropped on
                     MapGrid[this.CasePosition[0], this.CasePosition[1]].bomb = BombsOnTheMap[BombsOnTheMap.Count-1];
@@ -265,6 +271,15 @@ namespace BombermanMultiplayer
                 {
                     gr.DrawImage(this.Sprite, Source,0 , 0, Source.Width, Source.Height, GraphicsUnit.Pixel);
                     gr.DrawString("DEAD", new Font("Arial", 16), new SolidBrush(Color.Red), this.Source.X + Source.Width / 2, this.Source.Y - Source.Height / 2);
+
+                    BombLogOut bomblogout = new BombLogOut(BombLogList);
+
+                    bomblogout.printbomblog();
+
+                    setState(new DeadState());
+
+                    Alert(PlayerNumero.ToString());
+
                     return;
                 }
 
@@ -434,6 +449,25 @@ namespace BombermanMultiplayer
 
 
             return clone;
+        }
+
+        public void Remove()
+        {
+            UnloadSprite();
+            foreach(var n in components)
+            {
+                n.Remove();
+            }
+        }
+
+        public void setState(IState state)
+        {
+            currentState = state;
+        }
+
+        public void Alert(string text)
+        {
+            currentState.Alert(text);
         }
 
 

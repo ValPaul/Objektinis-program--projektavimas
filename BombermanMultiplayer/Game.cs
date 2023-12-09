@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using IPrototype = BombermanMultiplayer.Objects.Prototype.IPrototype;
+using BombermanMultiplayer.Objects.P2.Flyweight;
 
 namespace BombermanMultiplayer
 {
@@ -26,6 +27,7 @@ namespace BombermanMultiplayer
         public World world;
         public Player player1, player2;
         public ObserverManager observerManager;
+        public FireFactory firefactory;
 
         public List<IBomb> BombsOnTheMap;
         public System.Timers.Timer LogicTimer;
@@ -45,10 +47,15 @@ namespace BombermanMultiplayer
             player1 = new Player(1, 2, 33, 33, 1, 1, 48, 48, 80, 1);
             player2 = new Player(1, 2, 33, 33, this.world.MapGrid.GetLength(0) - 2, this.world.MapGrid.GetLength(0) - 2, 48, 48, 80, 2);
 
+            player1.Alert("one");
+            player2.Alert("two");
+
             observerManager = new ObserverManager();
 
             observerManager.subscribe(player1);
             observerManager.subscribe(player2);
+
+            firefactory = new FireFactory();
 
             this.BombsOnTheMap = new List<IBomb>();
             this.LogicTimer = new System.Timers.Timer(40);

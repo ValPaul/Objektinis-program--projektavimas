@@ -24,8 +24,6 @@ namespace BombermanMultiplayer
 
         #region Accessors
 
-      
-
         public int DetonationTime
         {
             get
@@ -40,12 +38,14 @@ namespace BombermanMultiplayer
             }
         }
 
-     
-
-
         #endregion
 
+        public override void LoadSprite(Image sprite)
+        {
 
+            this.Sprite = sprite;
+
+        }
         public void CreateBomb()
         {
             //return new Bomb()

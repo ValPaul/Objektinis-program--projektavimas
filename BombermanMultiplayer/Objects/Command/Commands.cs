@@ -20,6 +20,12 @@ namespace BombermanMultiplayer.Objects.Command
             Mode mode = new Mode();
             mode.Hide();
         }
+
+        public string GetHelpMessage()
+        {
+            return "Open the game mode selection screen";
+        }
+
     }
 
     public class ExitCommand : ICommand
@@ -32,6 +38,12 @@ namespace BombermanMultiplayer.Objects.Command
         {
             Application.Exit();
         }
+
+        public string GetHelpMessage()
+        {
+            return "Exit program";
+        }
+
     }
 
     public class OpenTutorialCommand : ICommand
@@ -45,6 +57,10 @@ namespace BombermanMultiplayer.Objects.Command
         {
             Tutorial tutorial = new Tutorial();
             tutorial.Hide();
+        }
+        public string GetHelpMessage()
+        {
+            return "Open toturial window";
         }
     }
 
@@ -60,6 +76,12 @@ namespace BombermanMultiplayer.Objects.Command
             HighScore highScore = new HighScore();
             highScore.Hide();
         }
+
+        public string GetHelpMessage()
+        {
+            return "Open high score window";
+        }
+
     }
 
     public class OpenSettingCommand : ICommand
@@ -74,6 +96,11 @@ namespace BombermanMultiplayer.Objects.Command
             Setting setting = new Setting();
             setting.Hide();
         }
+
+        public string GetHelpMessage()
+        {
+            return "Open settings window";
+        }
     }
 
     public class OpenAboutCommand : ICommand
@@ -87,6 +114,11 @@ namespace BombermanMultiplayer.Objects.Command
         {
             About about = new About();
             about.Hide();
+        }
+
+        public string GetHelpMessage()
+        {
+            return "Open about window";
         }
     }
 

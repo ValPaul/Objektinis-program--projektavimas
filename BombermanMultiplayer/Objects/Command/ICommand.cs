@@ -11,5 +11,7 @@ namespace BombermanMultiplayer.Objects.Command
         void Execute();
 
         void Undo();
+
+        string GetHelpMessage();
     }
 }

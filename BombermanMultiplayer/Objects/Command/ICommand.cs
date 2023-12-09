@@ -12,6 +12,6 @@ namespace BombermanMultiplayer.Objects.Command
 
         void Undo();
 
-        string GetHelpMessage();
+        string GetHelpMessage(); //reiktu defaulto bet tada .NET reiks kelti ir tai yra tikrai ne idealu :D
     }
 }

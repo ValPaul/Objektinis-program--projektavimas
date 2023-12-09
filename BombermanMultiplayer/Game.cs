@@ -12,6 +12,7 @@ using System.Timers;
 using System.Windows.Forms;
 using IPrototype = BombermanMultiplayer.Objects.Prototype.IPrototype;
 using BombermanMultiplayer.Objects.P2.Flyweight;
+using BombermanMultiplayer.Objects.Adapter;
 
 namespace BombermanMultiplayer
 {
@@ -27,12 +28,15 @@ namespace BombermanMultiplayer
         public World world;
         public Player player1, player2;
         public ObserverManager observerManager;
-        public FireFactory firefactory;
 
         public List<IBomb> BombsOnTheMap;
         public System.Timers.Timer LogicTimer;
         private object originalBomb;
         private List<NonExplosiveBomb> bombsOnTheMap = new List<NonExplosiveBomb>();
+
+        Bomb explosiveBomb = new Bomb(1, 1, 2, 5, 5, 0, 5, 5, 1);
+        NonExplosiveBomb nonExplosiveBomb = new NonExplosiveBomb(1, 1, 2, 5, 5, 0, 5, 5, 1);
+
 
 
 
@@ -54,8 +58,6 @@ namespace BombermanMultiplayer
 
             observerManager.subscribe(player1);
             observerManager.subscribe(player2);
-
-            firefactory = new FireFactory();
 
             this.BombsOnTheMap = new List<IBomb>();
             this.LogicTimer = new System.Timers.Timer(40);
@@ -166,6 +168,9 @@ namespace BombermanMultiplayer
         //Manage key pushed for local game
         public void Game_KeyDown(Keys key)
         {
+            IBombAdapter explosiveBombAdapter = new BombAdapter(explosiveBomb);
+            IBombAdapter nonExplosiveBombAdapter = new NonExplosiveBombAdapter(nonExplosiveBomb);
+
             switch (key)
             {
                 case Keys.Z:
@@ -245,6 +250,14 @@ namespace BombermanMultiplayer
                     break;
                 case Keys.U:
                     CreateShallowCopyOfBomb();
+                    break;
+                case Keys.I:
+                    player1.DropBomb(this.world.MapGrid, this.BombsOnTheMap, player2);
+                    explosiveBombAdapter.Detonate();
+                    break;
+                case Keys.O:
+                    player2.DropBomb(this.world.MapGrid, this.BombsOnTheMap, player1);
+                    nonExplosiveBombAdapter.Detonate();
                     break;
             }
         }
@@ -738,10 +751,10 @@ namespace BombermanMultiplayer
         {
             BombermanFacade bombermanFacade = new BombermanFacade();
 
-            // Create a non-explosive bomb
+          
             bombermanFacade.CreateNonExplosiveBomb(1, 2);
 
-            // Move the player
+            
             bombermanFacade.MovePlayer(Player.MovementDirection.UP);
         }
 

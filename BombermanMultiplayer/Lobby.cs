@@ -103,7 +103,7 @@ namespace BombermanMultiplayer
             //Wait till data
             while (RX_Packet.Empty())
             {
-                client.RecvData(ref RX_Packet);
+                client.ReceiveData(ref RX_Packet);
             }
 
             List<string> PlayersInfos = RX_Packet.GetPayload<List<string>>();
@@ -165,7 +165,7 @@ namespace BombermanMultiplayer
 
             while (RX_Packet.Empty())
             {
-                client.RecvData(ref RX_Packet);
+                client.ReceiveData(ref RX_Packet);
             }
 
             List<string> PlayersInfos = RX_Packet.GetPayload<List<string>>();
@@ -192,7 +192,7 @@ namespace BombermanMultiplayer
         {
             try
             {
-                client.RecvData(ref RX_Packet);
+                client.ReceiveData(ref RX_Packet);
 
                 //If there's a data received 
                 if (!RX_Packet.Empty())
@@ -241,7 +241,7 @@ namespace BombermanMultiplayer
                             
                             //Send the player name
                             TX_Packet = new Packet(Station, PacketType.Ready, tbNamePlayer.Text);
-                            client.sendData(TX_Packet);
+                            client.SendData(TX_Packet);
                             
                         }
                     }
@@ -705,7 +705,7 @@ namespace BombermanMultiplayer
                 if (client != null)
                     if (this.client.GetConnectionState())
                     {
-                        this.client.sendData(new Packet(Sender.Server, PacketType.CloseConnection, 1));
+                        this.client.SendData(new Packet(Sender.Server, PacketType.CloseConnection, 1));
                         Thread.Sleep(50);
                         this.client.Disconnect();
                     }
@@ -732,7 +732,7 @@ namespace BombermanMultiplayer
                 //Stop trying to receive datas
                 ConnectionTimer.Stop();
                 //cancel server task
-                this.client.sendData(new Packet(Station, PacketType.CloseConnection, 1));
+                this.client.SendData(new Packet(Station, PacketType.CloseConnection, 1));
 
                 Thread.Sleep(50);
                 this.client.Disconnect();
@@ -760,7 +760,7 @@ namespace BombermanMultiplayer
             if (GameRunning && !game.Over)
             {
                 TX_Packet = new Packet(Station, PacketType.KeyDown, e.KeyCode);
-                client.sendData(TX_Packet);
+                client.SendData(TX_Packet);
 
                 DelayKey = true;
                 TimerDelayKeyDown.Start();
@@ -774,7 +774,7 @@ namespace BombermanMultiplayer
             if (GameRunning && !game.Over)
             {
                 TX_Packet = new Packet(Station, PacketType.KeyUp, e.KeyCode);
-                client.sendData(TX_Packet);
+                client.SendData(TX_Packet);
             }
             
         }
@@ -863,7 +863,7 @@ namespace BombermanMultiplayer
             //Stop trying to receive datas
             ConnectionTimer.Stop();
             //cancel server task
-            this.client.sendData(new Packet(Station, PacketType.CloseConnection, 1));
+            this.client.SendData(new Packet(Station, PacketType.CloseConnection, 1));
             this.client.Disconnect();
 
             if (server != null)

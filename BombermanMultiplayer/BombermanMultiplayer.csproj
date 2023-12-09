@@ -90,6 +90,8 @@
     <Compile Include="Objects\Prototype\ICloneable.cs" />
     <Compile Include="Objects\Observer\Observer.cs" />
     <Compile Include="Objects\Observer\ObserverManager.cs" />
+    <Compile Include="Objects\Proxy\ITcpClient.cs" />
+    <Compile Include="Objects\Proxy\TcpClientProxy.cs" />
     <Compile Include="Objects\Strategy\GoRight.cs" />
     <Compile Include="Objects\Strategy\GoLeft.cs" />
     <Compile Include="Objects\Strategy\GoDown.cs" />

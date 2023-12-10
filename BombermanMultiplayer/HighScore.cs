@@ -33,8 +33,9 @@ namespace BombermanMultiplayer
         private void button1_Click(object sender, EventArgs e)
         {
             IExpression score = new AddExpression(new NumberExpression(13), new NumberExpression(4));
+            IExpression subScore = new SubtractExpression(score, new NumberExpression(1));
 
-            label1.Text = score.Interpret().ToString(); 
+            label1.Text = subScore.Interpret().ToString(); 
         }
     }
 }

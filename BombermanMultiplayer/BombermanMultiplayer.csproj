@@ -90,6 +90,8 @@
     <Compile Include="Objects\P2\Flyweight\Fire.cs" />
     <Compile Include="Objects\P2\Flyweight\FireType.cs" />
     <Compile Include="Objects\P2\Flyweight\FireFactory.cs" />
+    <Compile Include="Objects\P2\Interpreter\Expressions.cs" />
+    <Compile Include="Objects\P2\Interpreter\IExpression.cs" />
     <Compile Include="Objects\P2\Iterator\BombLog.cs" />
     <Compile Include="Objects\P2\Iterator\BombLogCollection.cs" />
     <Compile Include="Objects\P2\Iterator\BombLogIterator.cs" />
@@ -152,6 +154,9 @@
     <EmbeddedResource Include="GameWindow.resx">
       <DependentUpon>GameWindow.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HighScore.resx">
+      <DependentUpon>HighScore.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Lobby.resx">
       <DependentUpon>Lobby.cs</DependentUpon>

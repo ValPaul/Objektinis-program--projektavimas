@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BombermanMultiplayer.Objects;
+using BombermanMultiplayer.Objects.P2.Mediator;
 
 namespace BombermanMultiplayer.Objects.Facade
 {
@@ -12,12 +13,13 @@ namespace BombermanMultiplayer.Objects.Facade
         private NonExplosiveBombFactory nonExplosiveBombFactory;
         private BombFactory bombFactory;
         private Player player;
+        private IGameMediator mediator;
 
         public BombermanFacade()
         {
             nonExplosiveBombFactory = new NonExplosiveBombFactory();
             bombFactory = new BombFactory();
-            player = new Player(1, 2, 33, 33, 1, 1, 48, 48, 80, 1);
+            player = new Player(1, 2, 33, 33, 1, 1, 48, 48, 80, 1, mediator);
         }
 
        

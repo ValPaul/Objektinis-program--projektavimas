@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using IPrototype = BombermanMultiplayer.Objects.Prototype.IPrototype;
 using BombermanMultiplayer.Objects.P2.Flyweight;
 using BombermanMultiplayer.Objects.Adapter;
+using BombermanMultiplayer.Objects.P2.Mediator;
 
 namespace BombermanMultiplayer
 {
@@ -37,6 +38,8 @@ namespace BombermanMultiplayer
         Bomb explosiveBomb = new Bomb(1, 1, 2, 5, 5, 0, 5, 5, 1);
         NonExplosiveBomb nonExplosiveBomb = new NonExplosiveBomb(1, 1, 2, 5, 5, 0, 5, 5, 1);
 
+        IGameMediator mediator = new GameMediator();
+
 
 
 
@@ -48,8 +51,8 @@ namespace BombermanMultiplayer
         {
             this.world = new World(hebergeurWidth, hebergeurHeight, 48, 48, 1);
 
-            player1 = new Player(1, 2, 33, 33, 1, 1, 48, 48, 80, 1);
-            player2 = new Player(1, 2, 33, 33, this.world.MapGrid.GetLength(0) - 2, this.world.MapGrid.GetLength(0) - 2, 48, 48, 80, 2);
+            player1 = new Player(1, 2, 33, 33, 1, 1, 48, 48, 80, 1, mediator);
+            player2 = new Player(1, 2, 33, 33, this.world.MapGrid.GetLength(0) - 2, this.world.MapGrid.GetLength(0) - 2, 48, 48, 80, 2, mediator);
 
             player1.Alert("one");
             player2.Alert("two");
@@ -62,6 +65,8 @@ namespace BombermanMultiplayer
             this.BombsOnTheMap = new List<IBomb>();
             this.LogicTimer = new System.Timers.Timer(40);
             this.LogicTimer.Elapsed += LogicTimer_Elapsed;
+
+            mediator.Notify(player1, "GameStartEvent");
         }
 
         //ctor when loading a game

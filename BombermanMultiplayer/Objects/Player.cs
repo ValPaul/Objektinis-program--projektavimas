@@ -19,6 +19,7 @@ using BombermanMultiplayer.Objects.Prototype;
 using BombermanMultiplayer.Objects.P2.Iterator;
 using BombermanMultiplayer.Objects.P2.Composite;
 using BombermanMultiplayer.Objects.P2.State;
+using BombermanMultiplayer.Objects.P2.Mediator;
 
 namespace BombermanMultiplayer
 {
@@ -38,6 +39,7 @@ namespace BombermanMultiplayer
         //Player can have 2 bonus at the same time
         public BonusType[] BonusSlot = new BonusType[2];
         public short[] BonusTimer = new short[2];
+        private readonly IGameMediator mediator;
 
         public MovementDirection Orientation  = MovementDirection.NONE;
 
@@ -93,7 +95,7 @@ namespace BombermanMultiplayer
 
         #endregion
 
-        public Player(byte lifes, int totalFrames, int frameWidth, int frameHeight, int caseligne, int casecolonne, int TileWidth, int TileHeight, int frameTime, byte playerNumero)
+        public Player(byte lifes, int totalFrames, int frameWidth, int frameHeight, int caseligne, int casecolonne, int TileWidth, int TileHeight, int frameTime, byte playerNumero, IGameMediator mediator)
             : base(casecolonne * TileWidth, caseligne * TileHeight, totalFrames, frameWidth, frameHeight, frameTime)
         {
             CasePosition = new int[2] { caseligne, casecolonne };
@@ -102,22 +104,23 @@ namespace BombermanMultiplayer
             PlayerNumero = playerNumero;
             currentState = new AliveState();
 
+            this.mediator = mediator;
+
         }
 
+            //public void DropBomb(BombPrototype bombPrototype)
+            //{
 
-        //public void DropBomb(BombPrototype bombPrototype)
-        //{
+            //    Bomb newBomb = bombPrototype.CreateBomb();
 
-        //    Bomb newBomb = bombPrototype.CreateBomb();
+            //    BombsOnTheMap.Add(newBomb);
 
-        //    BombsOnTheMap.Add(newBomb);
-
-        //}
-        #region Deplacements
+            //}
+            #region Deplacements
 
 
-        //Check the player's location
-        public void LocationCheck(int tileWidth, int tileHeight)
+            //Check the player's location
+            public void LocationCheck(int tileWidth, int tileHeight)
         {
             //Player is considerate to be on a case when at least half of his sprite is on it
             //Hauteur
@@ -236,6 +239,7 @@ namespace BombermanMultiplayer
                         bombFactory = new NonExplosiveBombFactory().CreateBomb(BombType.NonExplosive, this.CasePosition[0], this.CasePosition[1], 8, 48, 48, 2000, 48, 48, this.PlayerNumero);
                     }
                     BombLogList.addItem(string.Format("Player: {0} placed a bomb", this.PlayerNumero));
+                    mediator.Notify(this, "SomeEvent");
                     BombsOnTheMap.Add(bombFactory);
                     //Case obtain a reference to the bomb dropped on
                     MapGrid[this.CasePosition[0], this.CasePosition[1]].bomb = BombsOnTheMap[BombsOnTheMap.Count-1];
@@ -438,7 +442,7 @@ namespace BombermanMultiplayer
 
         public Objects.Prototype.IPrototype DeepCopy()
         {
-            Player clone = new Player(this.Lifes, this.totalFrames, 50, 40, this.CasePosition[0], this.CasePosition[1], 2, 2, 10, this.PlayerNumero);
+            Player clone = new Player(this.Lifes, this.totalFrames, 50, 40, this.CasePosition[0], this.CasePosition[1], 2, 2, 10, this.PlayerNumero, mediator);
 
             clone.Name = this.Name;
             clone.Dead = this.Dead;

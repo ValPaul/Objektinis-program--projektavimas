@@ -13,6 +13,8 @@ using System.Windows.Forms;
 using IPrototype = BombermanMultiplayer.Objects.Prototype.IPrototype;
 using BombermanMultiplayer.Objects.P2.Flyweight;
 using BombermanMultiplayer.Objects.Adapter;
+using BombermanMultiplayer.Objects.P2.Visitor;
+using BombermanMultiplayer.Objects;
 
 namespace BombermanMultiplayer
 {
@@ -36,6 +38,9 @@ namespace BombermanMultiplayer
 
         Bomb explosiveBomb = new Bomb(1, 1, 2, 5, 5, 0, 5, 5, 1);
         NonExplosiveBomb nonExplosiveBomb = new NonExplosiveBomb(1, 1, 2, 5, 5, 0, 5, 5, 1);
+
+        private List<Bonus> bonusesList;
+        private List<NonExplosiveBomb> nonExplosiveBombsList;
 
 
 
@@ -62,6 +67,9 @@ namespace BombermanMultiplayer
             this.BombsOnTheMap = new List<IBomb>();
             this.LogicTimer = new System.Timers.Timer(40);
             this.LogicTimer.Elapsed += LogicTimer_Elapsed;
+
+            bonusesList = new List<Bonus>();
+            nonExplosiveBombsList = new List<NonExplosiveBomb>();
         }
 
         //ctor when loading a game
@@ -784,6 +792,20 @@ namespace BombermanMultiplayer
 
             bombsOnTheMap.Add(newBomb);
 
+        }
+        public void PerformVisitorOperations()
+        {
+            IVisitor concreteVisitor = new ConcreteVisitor();
+
+            foreach (var bonus in bonusesList)
+            {
+                bonus.Accept(concreteVisitor);
+            }
+
+            foreach (var bomb in nonExplosiveBombsList)
+            {
+                bomb.Accept(concreteVisitor);
+            }
         }
     }
 }

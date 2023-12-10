@@ -99,6 +99,9 @@
     <Compile Include="Objects\P2\State\AliveState.cs" />
     <Compile Include="Objects\P2\State\DeadState.cs" />
     <Compile Include="Objects\P2\State\IState.cs" />
+    <Compile Include="Objects\P2\Visitor\ConcreteVisitor.cs" />
+    <Compile Include="Objects\P2\Visitor\IVisitable.cs" />
+    <Compile Include="Objects\P2\Visitor\IVisitor.cs" />
     <Compile Include="Objects\Prototype\BombPrototype.cs" />
     <Compile Include="Objects\Prototype\ICloneable.cs" />
     <Compile Include="Objects\Observer\Observer.cs" />

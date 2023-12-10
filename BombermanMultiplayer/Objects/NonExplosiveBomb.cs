@@ -9,11 +9,12 @@ using System.Drawing.Drawing2D;
 using System.Media;
 using System.Diagnostics;
 using BombermanMultiplayer.Objects.Prototype;
+using BombermanMultiplayer.Objects.P2.Visitor;
 
 namespace BombermanMultiplayer
 {
     [Serializable]
-    public class NonExplosiveBomb : GameObject, IDisposable, IBomb, IPrototype
+    public class NonExplosiveBomb : GameObject, IDisposable, IBomb, IPrototype, IVisitable
     {
 
         private int _DetonationTime = 2000;
@@ -184,6 +185,11 @@ namespace BombermanMultiplayer
             // make sure to copy them here.
 
             return clone;
+        }
+
+        public void Accept(IVisitor visitor)
+        {
+            visitor.Visit(this);
         }
         #endregion
 

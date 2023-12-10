@@ -1,10 +1,11 @@
 ﻿using BombermanMultiplayer.Objects.P2.Composite;
+using BombermanMultiplayer.Objects.P2.Visitor;
 using System;
 using System.Drawing;
 
 namespace BombermanMultiplayer.Objects
 {
-    public class Bonus : GameObject, IBonus
+    public class Bonus : GameObject, IBonus, IVisitable
     {
         public BonusType Type = BonusType.None;
 
@@ -48,6 +49,11 @@ namespace BombermanMultiplayer.Objects
         public void Remove()
         {
             UnloadSprite();
+        }
+
+        public void Accept(IVisitor visitor)
+        {
+            visitor.Visit(this);
         }
     }
 

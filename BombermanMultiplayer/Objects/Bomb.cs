@@ -8,11 +8,13 @@ using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using System.Media;
 using System.Diagnostics;
+using BombermanMultiplayer.Objects.P2.Visitor;
+using BombermanMultiplayer.Objects;
 
 namespace BombermanMultiplayer
 {
     [Serializable]
-    public class Bomb : GameObject, IDisposable, IBomb // IPrototype<Bomb>
+    public class Bomb : GameObject, IDisposable, IBomb, IVisitable // IPrototype<Bomb>
     {
 
         private int _DetonationTime = 2000;
@@ -327,6 +329,12 @@ namespace BombermanMultiplayer
             // TODO: uncomment the following line if the finalizer is overridden above.
              GC.SuppressFinalize(this);
         }
+
+        public void Accept(IVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
         #endregion
 
 

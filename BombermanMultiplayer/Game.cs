@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using IPrototype = BombermanMultiplayer.Objects.Prototype.IPrototype;
 using BombermanMultiplayer.Objects.P2.Flyweight;
 using BombermanMultiplayer.Objects.Adapter;
+using BombermanMultiplayer.Objects.P2.Memento;
 
 namespace BombermanMultiplayer
 {
@@ -36,6 +37,8 @@ namespace BombermanMultiplayer
 
         Bomb explosiveBomb = new Bomb(1, 1, 2, 5, 5, 0, 5, 5, 1);
         NonExplosiveBomb nonExplosiveBomb = new NonExplosiveBomb(1, 1, 2, 5, 5, 0, 5, 5, 1);
+
+        int stateIndexToRestore = 0; // memento index
 
 
 
@@ -457,6 +460,7 @@ namespace BombermanMultiplayer
 
         private void BonusLogic(Player player)
         {
+            player.SaveState(); // Memento pattern
             int freeSlot = -1;
             for (int i = 0; i < player.BonusSlot.Length; i++)
             {
@@ -514,6 +518,8 @@ namespace BombermanMultiplayer
                             break;
                     }
                     this.world.MapGrid[player.CasePosition[0], player.CasePosition[1]].BonusHere = null;
+
+                    player.RestoreState(stateIndexToRestore);
                 }
             }
         }

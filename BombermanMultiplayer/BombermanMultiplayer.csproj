@@ -97,6 +97,11 @@
     <Compile Include="Objects\P2\Iterator\ICollection.cs" />
     <Compile Include="Objects\P2\Iterator\iIterator.cs" />
     <Compile Include="Objects\P2\Memento\GameMemento.cs" />
+    <Compile Include="Objects\P2\Memento\MementoCareTaker.cs" />
+    <Compile Include="Objects\P2\Memento\MementoOriginator.cs" />
+    <Compile Include="Objects\P2\Memento\PlayerCareTaker.cs" />
+    <Compile Include="Objects\P2\Memento\PlayerMemento.cs" />
+    <Compile Include="Objects\P2\Memento\PlayerOriginator.cs" />
     <Compile Include="Objects\P2\State\AliveState.cs" />
     <Compile Include="Objects\P2\State\DeadState.cs" />
     <Compile Include="Objects\P2\State\IState.cs" />

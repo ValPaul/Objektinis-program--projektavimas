@@ -21,8 +21,6 @@ namespace BombermanMultiplayer.Objects.P2.Memento
 
         private static Tile[,] DeepCopyMapGrid(Tile[,] original)
         {
-
-
             return original;
         }
 

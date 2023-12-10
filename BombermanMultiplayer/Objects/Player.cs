@@ -19,6 +19,7 @@ using BombermanMultiplayer.Objects.Prototype;
 using BombermanMultiplayer.Objects.P2.Iterator;
 using BombermanMultiplayer.Objects.P2.Composite;
 using BombermanMultiplayer.Objects.P2.State;
+using BombermanMultiplayer.Objects.P2.Memento;
 
 namespace BombermanMultiplayer
 {
@@ -35,6 +36,10 @@ namespace BombermanMultiplayer
         private IState currentState;
         private List<IBonus> components = new List<IBonus> ();
         BombLogCollection BombLogList = new BombLogCollection();
+
+        private PlayerOriginator originator = new PlayerOriginator();
+        private PlayerCareTaker careTaker = new PlayerCareTaker();
+
         //Player can have 2 bonus at the same time
         public BonusType[] BonusSlot = new BonusType[2];
         public short[] BonusTimer = new short[2];
@@ -42,6 +47,7 @@ namespace BombermanMultiplayer
         public MovementDirection Orientation  = MovementDirection.NONE;
 
         public int Wait = 500;
+        internal byte Vitesse;
 
         public enum MovementDirection
         {
@@ -469,6 +475,18 @@ namespace BombermanMultiplayer
         {
             currentState.Alert(text);
         }
+
+        public void SaveState()
+        {
+            careTaker.AddMemento(originator.CreateMemento(this));
+        }
+
+        public void RestoreState(int index)
+        {
+            PlayerMemento memento = careTaker.GetMemento(index);
+            originator.SetMemento(this, memento);
+        }
+
 
 
 
